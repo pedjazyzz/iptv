@@ -1,0 +1,182 @@
+[
+  {
+    "no": 1,
+    "name": "HBO",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/HBO/index.m3u8"
+  },
+  {
+    "no": 2,
+    "name": "HBO 2",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/HBO2/index.m3u8"
+  },
+  {
+    "no": 3,
+    "name": "HBO 3",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/HBO3/index.m3u8"
+  },
+  {
+    "no": 4,
+    "name": "FilmBox Premium",
+    "group": "🎬 Filmovi i Serije",
+    "url": "http://5.57.74.130:8000/play/a0aa/index.m3u8"
+  },
+  {
+    "no": 5,
+    "name": "Star Movies",
+    "group": "🎬 Filmovi i Serije",
+    "url": "http://5.57.74.130:8000/play/a0aw/index.m3u8"
+  },
+  {
+    "no": 6,
+    "name": "CineStar TV1",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CinestarTV1/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 7,
+    "name": "CineStar Premiere1",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CinestarPremiere1/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 8,
+    "name": "CineStar Premiere2",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CinestarPremiere2/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 9,
+    "name": "SciFi",
+    "group": "🎬 Filmovi i Serije",
+    "url": "http://5.57.74.130:8000/play/a0ch/index.m3u8"
+  },
+  {
+    "no": 10,
+    "name": "Pink Horror",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/PinkHorror/index.m3u8"
+  },
+  {
+    "no": 11,
+    "name": "RTL Adria",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/RTLAdria/index.m3u8"
+  },
+  {
+    "no": 12,
+    "name": "NovaMax Series",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/NovaSeries/tracks-v3a1/mono.ts.m3u8"
+  },
+  {
+    "no": 13,
+    "name": "CineStar Action",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CinestarAction/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 14,
+    "name": "CineStar Comedy",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CinestarComedy/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 15,
+    "name": "CineStar Fantasy",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CinestarFantasy/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 16,
+    "name": "Star HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/FoxSRHD/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 17,
+    "name": "StarLife HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/FoxLifeSRHD/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 18,
+    "name": "StarMovies HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/FoxMoviesSRHD/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 19,
+    "name": "StarCrime HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/FoxCrimeSRHD/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 20,
+    "name": "AXN",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/AXN/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 21,
+    "name": "AXN Spin",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/AXNSpin/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 22,
+    "name": "AMC",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/AMC/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 23,
+    "name": "CineMax HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CinemaxHD/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 24,
+    "name": "CineMax2 HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/Cinemax2HD/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 25,
+    "name": "CroMax Select HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CroMaxSelect1/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 26,
+    "name": "CroMax Select 2 HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CroMaxSelect2/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 27,
+    "name": "CroMax Select 3 HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CroMaxSelect3/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 28,
+    "name": "CroMax Select 4 HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CroMaxSelect4/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 29,
+    "name": "CroMax Select 5 HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CroMaxSelect5/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 30,
+    "name": "CroMax Select 6 HD",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CroMaxSelect6/tracks-v1a1/mono.ts.m3u8"
+  }
+]

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinema IPTV</title>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
+:root{--border:rgba(255,255,255,.12);--muted:#aaaabb;--red:#e50914;--red2:#ff3d49;--gold:#ffd166}
+body{min-height:100vh;color:#fff;background:radial-gradient(circle at top left,rgba(229,9,20,.32),transparent 35%),radial-gradient(circle at bottom right,rgba(255,209,102,.12),transparent 35%),linear-gradient(135deg,#07070b,#151522 60%,#09090f);padding:22px}
+.container{max-width:1400px;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:20px}
+h1{font-size:34px}.muted{color:var(--muted);margin-top:5px}
+.badge,.btn{border:1px solid var(--border);border-radius:999px;padding:12px 16px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-weight:900;cursor:pointer;text-decoration:none}
+.btn.secondary{background:rgba(255,255,255,.08)}
+.player-box{display:none;position:relative;background:#000;border-radius:30px;overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 90px rgba(0,0,0,.65);margin-bottom:20px}
+video{width:100%;height:62vh;background:#000;display:block}
+.now{position:absolute;left:18px;bottom:18px;padding:14px 16px;border-radius:18px;background:rgba(0,0,0,.58);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px)}
+.welcome{border:1px solid var(--border);border-radius:30px;min-height:260px;display:grid;place-items:center;text-align:center;padding:30px;margin-bottom:22px;background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.035));box-shadow:0 25px 70px rgba(0,0,0,.38)}
+.welcome h2{font-size:34px;margin:10px 0}
+.section-title{display:flex;justify-content:space-between;align-items:center;margin:10px 0 16px;padding:14px 16px;border-radius:20px;background:rgba(255,255,255,.055);border:1px solid var(--border)}
+.category-grid,.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
+.category-card,.card{min-height:150px;border:1px solid var(--border);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.035));color:#fff;cursor:pointer;padding:18px;text-align:left;transition:.24s;position:relative;overflow:hidden}
+.category-card:hover,.card:hover,.card.active{transform:translateY(-5px) scale(1.02);background:linear-gradient(145deg,rgba(229,9,20,.95),rgba(255,61,73,.78));box-shadow:0 18px 45px rgba(229,9,20,.28)}
+.category-icon{font-size:40px;margin-bottom:12px}.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
+.number{width:42px;height:42px;border-radius:15px;background:rgba(0,0,0,.25);display:grid;place-items:center;color:var(--gold);font-weight:950}
+.star{border:none;border-radius:14px;width:38px;height:38px;background:rgba(255,255,255,.13);color:#fff;font-size:19px;cursor:pointer}
+.channel-name{font-size:18px;font-weight:950}.channel-group{color:rgba(255,255,255,.72);font-size:12px;margin-top:5px}
+.topbar{display:grid;grid-template-columns:1fr auto auto;gap:12px;margin-bottom:18px}
+.search,input,select{width:100%;padding:14px 15px;border-radius:16px;border:1px solid var(--border);outline:none;background:rgba(255,255,255,.08);color:#fff}
+select option{color:#111}.content{display:none}.error{color:#ff7777;margin-top:7px}
+.info{border:1px solid var(--border);border-radius:22px;background:rgba(255,255,255,.055);padding:16px;margin-top:18px}
+@media(max-width:800px){body{padding:12px}header,.topbar{grid-template-columns:1fr;flex-direction:column;align-items:stretch}video{height:42vh}h1{font-size:27px}.grid,.category-grid{grid-template-columns:repeat(auto-fill,minmax(135px,1fr))}.channel-name{font-size:15px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div><h1>🎬 Cinema IPTV</h1><p class="muted">Kanali se učitavaju iz channels.json</p></div>
+  <a class="btn secondary" href="admin.html">⚙ Admin</a>
+</header>
+
+<div id="welcome" class="welcome"><div><div style="font-size:58px">📂</div><h2>Izaberi kategoriju</h2><p class="muted">Klikni kategoriju, zatim izaberi kanal.</p></div></div>
+
+<div id="playerBox" class="player-box">
+  <video id="video" controls autoplay playsinline></video>
+  <div class="now"><strong id="currentChannel">Izaberi kanal</strong><br><span id="currentGroup" class="muted">Klikni na karticu</span></div>
+</div>
+
+<div id="categoryScreen">
+  <div class="section-title"><h2>📂 Kategorije</h2><div id="categoryCount" class="muted"></div></div>
+  <div id="categoryGrid" class="category-grid"></div>
+</div>
+
+<div id="contentArea" class="content">
+  <button class="btn secondary" onclick="goBack()">← Nazad na kategorije</button>
+  <div class="topbar" style="margin-top:16px">
+    <input id="search" class="search" placeholder="Pretraži kanale...">
+    <button id="allBtn" class="btn">Svi kanali</button>
+    <button id="favBtn" class="btn secondary">⭐ Favoriti</button>
+  </div>
+  <div class="section-title"><h2 id="categoryTitle"></h2><div id="channelCount" style="color:var(--gold);font-weight:900"></div></div>
+  <div id="channelGrid" class="grid"></div>
+</div>
+
+<div class="info">
+  <h3>Status</h3>
+  <p id="status" class="muted">Spremno.</p>
+  <p id="error" class="error"></p>
+</div>
+</div>
+
+<script>
+let channels=[], currentCategory="", activeUrl="", hls=null, showFavorites=false;
+let favorites = JSON.parse(localStorage.getItem("iptvFavorites") || "[]");
+
+const video=document.getElementById("video"), playerBox=document.getElementById("playerBox"), welcome=document.getElementById("welcome");
+const categoryScreen=document.getElementById("categoryScreen"), contentArea=document.getElementById("contentArea");
+const categoryGrid=document.getElementById("categoryGrid"), channelGrid=document.getElementById("channelGrid");
+const search=document.getElementById("search"), statusText=document.getElementById("status"), errorText=document.getElementById("error");
+
+async function loadChannels(){
+  try {
+    const res = await fetch("channels.json?v=" + Date.now());
+    channels = await res.json();
+    renderCategories();
+  } catch(e) {
+    statusText.textContent = "Greška: channels.json nije pronađen.";
+    errorText.textContent = "Uploaduj channels.json u isti folder kao index.html.";
+  }
+}
+
+function renderCategories(){
+  const groups = [...new Set(channels.map(c=>c.group))];
+  document.getElementById("categoryCount").textContent = groups.length + " kategorija";
+  categoryGrid.innerHTML = groups.map(group => {
+    const count = channels.filter(c=>c.group===group).length;
+    const icon = group.split(" ")[0] || "📺";
+    return `<button class="category-card" onclick="openCategory('${group.replace(/'/g,"&#39;")}')">
+      <div class="category-icon">${icon}</div><h3>${group.replace(/^\S+\s?/,"") || group}</h3><p>${count} kanala</p>
+    </button>`;
+  }).join("");
+}
+
+function openCategory(group){
+  currentCategory=group; showFavorites=false; search.value="";
+  welcome.style.display="grid"; playerBox.style.display="none";
+  categoryScreen.style.display="none"; contentArea.style.display="block";
+  document.getElementById("categoryTitle").textContent=group;
+  renderChannels(); window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function goBack(){
+  contentArea.style.display="none"; categoryScreen.style.display="block"; welcome.style.display="grid"; playerBox.style.display="none";
+  if(hls){hls.destroy();hls=null} video.pause(); video.removeAttribute("src"); video.load();
+}
+
+function isFav(url){return favorites.includes(url)}
+function toggleFav(ch,e){e.stopPropagation(); favorites=isFav(ch.url)?favorites.filter(u=>u!==ch.url):[...favorites,ch.url]; localStorage.setItem("iptvFavorites",JSON.stringify(favorites)); renderChannels()}
+
+function renderChannels(){
+  const q=search.value.toLowerCase();
+  const list=channels.filter(c=>c.group===currentCategory).filter(c=>!showFavorites||isFav(c.url)).filter(c=>c.name.toLowerCase().includes(q)).sort((a,b)=>a.no-b.no);
+  document.getElementById("channelCount").textContent=`${list.length}/${channels.filter(c=>c.group===currentCategory).length}`;
+  channelGrid.innerHTML = list.map(ch=>`<button class="card ${ch.url===activeUrl?"active":""}" onclick="playChannel(${ch.no}, '${ch.group.replace(/'/g,"&#39;")}')">
+    <div class="card-top"><div class="number">${String(ch.no).padStart(2,"0")}</div><button class="star" onclick="toggleFav(channels.find(c=>c.url==='${ch.url}'), event)">${isFav(ch.url)?"⭐":"☆"}</button></div>
+    <div class="channel-name">${ch.name}</div><div class="channel-group">${ch.group}</div>
+  </button>`).join("") || '<p class="muted">Nema kanala.</p>';
+}
+
+function playChannel(no, group){
+  const ch=channels.find(c=>c.no===no && c.group===group); if(!ch) return;
+  welcome.style.display="none"; playerBox.style.display="block"; activeUrl=ch.url; renderChannels();
+  document.getElementById("currentChannel").textContent=ch.name; document.getElementById("currentGroup").textContent=`${ch.group} • Kanal ${ch.no}`;
+  statusText.textContent="Učitavanje strima..."; errorText.textContent="";
+  if(hls){hls.destroy();hls=null} video.pause(); video.removeAttribute("src"); video.load();
+  if(location.protocol==="https:" && ch.url.startsWith("http://")) errorText.textContent="HTTPS sajt može blokirati HTTP stream.";
+  if(Hls.isSupported()){ hls=new Hls({enableWorker:true,lowLatencyMode:true}); hls.loadSource(ch.url); hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,()=>{video.play().catch(()=>statusText.textContent="Klikni Play."); statusText.textContent="Strim je pokrenut."});
+    hls.on(Hls.Events.ERROR,(e,d)=>{if(d.fatal){statusText.textContent="Greška u strimu."; errorText.textContent="CORS, offline link ili mixed content."}});
+  } else { video.src=ch.url; video.play(); }
+}
+
+search.addEventListener("input",renderChannels);
+document.getElementById("allBtn").onclick=()=>{showFavorites=false;renderChannels()};
+document.getElementById("favBtn").onclick=()=>{showFavorites=true;renderChannels()};
+loadChannels();
+</script>
+</body>
+</html>
