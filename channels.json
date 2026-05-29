@@ -208,5 +208,11 @@
     "name": "Pink Premium",
     "group": "🎬 Filmovi i Serije",
     "url": "https://de1.dstv.cx/PinkPremium/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 1,
+    "name": "PrvaTV",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/PrvaTVHD/tracks-v3a1/mono.ts.m3u8"
   }
 ]
