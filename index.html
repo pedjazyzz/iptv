@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cinema IPTV</title>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <style>
@@ -36,30 +37,51 @@ select option{color:#111}.content{display:none}.error{color:#ff7777;margin-top:7
 <body>
 <div class="container">
 <header>
-  <div><h1>🎬 Cinema IPTV</h1><p class="muted">Kanali se učitavaju iz channels.json</p></div>
+  <div>
+    <h1>🎬 Cinema IPTV</h1>
+    <p class="muted">Kanali se učitavaju iz channels.json</p>
+  </div>
   <a class="btn secondary" href="admin.html">⚙ Admin</a>
 </header>
 
-<div id="welcome" class="welcome"><div><div style="font-size:58px">📂</div><h2>Izaberi kategoriju</h2><p class="muted">Klikni kategoriju, zatim izaberi kanal.</p></div></div>
+<div id="welcome" class="welcome">
+  <div>
+    <div style="font-size:58px">📂</div>
+    <h2>Izaberi kategoriju</h2>
+    <p class="muted">Klikni kategoriju, zatim izaberi kanal.</p>
+  </div>
+</div>
 
 <div id="playerBox" class="player-box">
   <video id="video" controls autoplay playsinline></video>
-  <div class="now"><strong id="currentChannel">Izaberi kanal</strong><br><span id="currentGroup" class="muted">Klikni na karticu</span></div>
+  <div class="now">
+    <strong id="currentChannel">Izaberi kanal</strong><br>
+    <span id="currentGroup" class="muted">Klikni na karticu</span>
+  </div>
 </div>
 
 <div id="categoryScreen">
-  <div class="section-title"><h2>📂 Kategorije</h2><div id="categoryCount" class="muted"></div></div>
+  <div class="section-title">
+    <h2>📂 Kategorije</h2>
+    <div id="categoryCount" class="muted"></div>
+  </div>
   <div id="categoryGrid" class="category-grid"></div>
 </div>
 
 <div id="contentArea" class="content">
-  <button class="btn secondary" onclick="goBack()">← Nazad na kategorije</button>
+  <button id="backBtn" class="btn secondary">← Nazad na kategorije</button>
+
   <div class="topbar" style="margin-top:16px">
     <input id="search" class="search" placeholder="Pretraži kanale...">
     <button id="allBtn" class="btn">Svi kanali</button>
     <button id="favBtn" class="btn secondary">⭐ Favoriti</button>
   </div>
-  <div class="section-title"><h2 id="categoryTitle"></h2><div id="channelCount" style="color:var(--gold);font-weight:900"></div></div>
+
+  <div class="section-title">
+    <h2 id="categoryTitle"></h2>
+    <div id="channelCount" style="color:var(--gold);font-weight:900"></div>
+  </div>
+
   <div id="channelGrid" class="grid"></div>
 </div>
 
@@ -71,79 +93,260 @@ select option{color:#111}.content{display:none}.error{color:#ff7777;margin-top:7
 </div>
 
 <script>
-let channels=[], currentCategory="", activeUrl="", hls=null, showFavorites=false;
+let channels = [];
+let currentCategory = "";
+let activeUrl = "";
+let hls = null;
+let showFavorites = false;
 let favorites = JSON.parse(localStorage.getItem("iptvFavorites") || "[]");
 
-const video=document.getElementById("video"), playerBox=document.getElementById("playerBox"), welcome=document.getElementById("welcome");
-const categoryScreen=document.getElementById("categoryScreen"), contentArea=document.getElementById("contentArea");
-const categoryGrid=document.getElementById("categoryGrid"), channelGrid=document.getElementById("channelGrid");
-const search=document.getElementById("search"), statusText=document.getElementById("status"), errorText=document.getElementById("error");
+const video = document.getElementById("video");
+const playerBox = document.getElementById("playerBox");
+const welcome = document.getElementById("welcome");
+const categoryScreen = document.getElementById("categoryScreen");
+const contentArea = document.getElementById("contentArea");
+const categoryGrid = document.getElementById("categoryGrid");
+const channelGrid = document.getElementById("channelGrid");
+const search = document.getElementById("search");
+const statusText = document.getElementById("status");
+const errorText = document.getElementById("error");
 
-async function loadChannels(){
+async function loadChannels() {
   try {
-    const res = await fetch("channels.json?v=" + Date.now());
+    const res = await fetch("./channels.json?cache=" + Date.now());
+
+    if (!res.ok) {
+      throw new Error("HTTP " + res.status);
+    }
+
     channels = await res.json();
+
+    if (!Array.isArray(channels)) {
+      throw new Error("channels.json mora biti array/lista kanala");
+    }
+
+    channels = channels
+      .filter(ch => ch && ch.name && ch.group && ch.url)
+      .map((ch, index) => ({
+        no: Number(ch.no) || index + 1,
+        name: String(ch.name),
+        group: String(ch.group),
+        url: String(ch.url)
+      }));
+
+    statusText.textContent = "Učitano kanala: " + channels.length;
     renderCategories();
-  } catch(e) {
-    statusText.textContent = "Greška: channels.json nije pronađen.";
-    errorText.textContent = "Uploaduj channels.json u isti folder kao index.html.";
+  } catch (e) {
+    console.error(e);
+    statusText.textContent = "Greška: channels.json nije učitan.";
+    errorText.textContent = "Proveri da li je channels.json uploadovan pored index.html i da li je JSON ispravan.";
   }
 }
 
-function renderCategories(){
-  const groups = [...new Set(channels.map(c=>c.group))];
+function renderCategories() {
+  const groups = [...new Set(channels.map(c => c.group))];
+
   document.getElementById("categoryCount").textContent = groups.length + " kategorija";
-  categoryGrid.innerHTML = groups.map(group => {
-    const count = channels.filter(c=>c.group===group).length;
-    const icon = group.split(" ")[0] || "📺";
-    return `<button class="category-card" onclick="openCategory('${group.replace(/'/g,"&#39;")}')">
-      <div class="category-icon">${icon}</div><h3>${group.replace(/^\S+\s?/,"") || group}</h3><p>${count} kanala</p>
-    </button>`;
-  }).join("");
+  categoryGrid.innerHTML = "";
+
+  groups.forEach(group => {
+    const count = channels.filter(c => c.group === group).length;
+    const icon = group.trim().split(" ")[0] || "📺";
+    const cleanTitle = group.replace(/^\S+\s?/, "") || group;
+
+    const card = document.createElement("button");
+    card.className = "category-card";
+    card.innerHTML = `
+      <div class="category-icon">${icon}</div>
+      <h3>${cleanTitle}</h3>
+      <p>${count} kanala</p>
+    `;
+
+    card.addEventListener("click", () => openCategory(group));
+    categoryGrid.appendChild(card);
+  });
 }
 
-function openCategory(group){
-  currentCategory=group; showFavorites=false; search.value="";
-  welcome.style.display="grid"; playerBox.style.display="none";
-  categoryScreen.style.display="none"; contentArea.style.display="block";
-  document.getElementById("categoryTitle").textContent=group;
-  renderChannels(); window.scrollTo({top:0,behavior:"smooth"});
+function openCategory(group) {
+  currentCategory = group;
+  showFavorites = false;
+  search.value = "";
+
+  welcome.style.display = "grid";
+  playerBox.style.display = "none";
+  categoryScreen.style.display = "none";
+  contentArea.style.display = "block";
+
+  document.getElementById("categoryTitle").textContent = group;
+  renderChannels();
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function goBack(){
-  contentArea.style.display="none"; categoryScreen.style.display="block"; welcome.style.display="grid"; playerBox.style.display="none";
-  if(hls){hls.destroy();hls=null} video.pause(); video.removeAttribute("src"); video.load();
+function goBack() {
+  contentArea.style.display = "none";
+  categoryScreen.style.display = "block";
+  welcome.style.display = "grid";
+  playerBox.style.display = "none";
+
+  if (hls) {
+    hls.destroy();
+    hls = null;
+  }
+
+  video.pause();
+  video.removeAttribute("src");
+  video.load();
 }
 
-function isFav(url){return favorites.includes(url)}
-function toggleFav(ch,e){e.stopPropagation(); favorites=isFav(ch.url)?favorites.filter(u=>u!==ch.url):[...favorites,ch.url]; localStorage.setItem("iptvFavorites",JSON.stringify(favorites)); renderChannels()}
-
-function renderChannels(){
-  const q=search.value.toLowerCase();
-  const list=channels.filter(c=>c.group===currentCategory).filter(c=>!showFavorites||isFav(c.url)).filter(c=>c.name.toLowerCase().includes(q)).sort((a,b)=>a.no-b.no);
-  document.getElementById("channelCount").textContent=`${list.length}/${channels.filter(c=>c.group===currentCategory).length}`;
-  channelGrid.innerHTML = list.map(ch=>`<button class="card ${ch.url===activeUrl?"active":""}" onclick="playChannel(${ch.no}, '${ch.group.replace(/'/g,"&#39;")}')">
-    <div class="card-top"><div class="number">${String(ch.no).padStart(2,"0")}</div><button class="star" onclick="toggleFav(channels.find(c=>c.url==='${ch.url}'), event)">${isFav(ch.url)?"⭐":"☆"}</button></div>
-    <div class="channel-name">${ch.name}</div><div class="channel-group">${ch.group}</div>
-  </button>`).join("") || '<p class="muted">Nema kanala.</p>';
+function isFav(url) {
+  return favorites.includes(url);
 }
 
-function playChannel(no, group){
-  const ch=channels.find(c=>c.no===no && c.group===group); if(!ch) return;
-  welcome.style.display="none"; playerBox.style.display="block"; activeUrl=ch.url; renderChannels();
-  document.getElementById("currentChannel").textContent=ch.name; document.getElementById("currentGroup").textContent=`${ch.group} • Kanal ${ch.no}`;
-  statusText.textContent="Učitavanje strima..."; errorText.textContent="";
-  if(hls){hls.destroy();hls=null} video.pause(); video.removeAttribute("src"); video.load();
-  if(location.protocol==="https:" && ch.url.startsWith("http://")) errorText.textContent="HTTPS sajt može blokirati HTTP stream.";
-  if(Hls.isSupported()){ hls=new Hls({enableWorker:true,lowLatencyMode:true}); hls.loadSource(ch.url); hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED,()=>{video.play().catch(()=>statusText.textContent="Klikni Play."); statusText.textContent="Strim je pokrenut."});
-    hls.on(Hls.Events.ERROR,(e,d)=>{if(d.fatal){statusText.textContent="Greška u strimu."; errorText.textContent="CORS, offline link ili mixed content."}});
-  } else { video.src=ch.url; video.play(); }
+function toggleFav(channel, event) {
+  event.stopPropagation();
+
+  if (isFav(channel.url)) {
+    favorites = favorites.filter(u => u !== channel.url);
+  } else {
+    favorites.push(channel.url);
+  }
+
+  localStorage.setItem("iptvFavorites", JSON.stringify(favorites));
+  renderChannels();
 }
 
-search.addEventListener("input",renderChannels);
-document.getElementById("allBtn").onclick=()=>{showFavorites=false;renderChannels()};
-document.getElementById("favBtn").onclick=()=>{showFavorites=true;renderChannels()};
+function renderChannels() {
+  const q = search.value.toLowerCase();
+
+  const categoryChannels = channels.filter(c => c.group === currentCategory);
+
+  const list = categoryChannels
+    .filter(c => !showFavorites || isFav(c.url))
+    .filter(c => c.name.toLowerCase().includes(q))
+    .sort((a, b) => a.no - b.no);
+
+  document.getElementById("channelCount").textContent = `${list.length}/${categoryChannels.length}`;
+  channelGrid.innerHTML = "";
+
+  if (!list.length) {
+    const p = document.createElement("p");
+    p.className = "muted";
+    p.textContent = "Nema kanala za prikaz.";
+    channelGrid.appendChild(p);
+    return;
+  }
+
+  list.forEach(channel => {
+    const card = document.createElement("button");
+    card.className = "card" + (channel.url === activeUrl ? " active" : "");
+
+    const cardTop = document.createElement("div");
+    cardTop.className = "card-top";
+
+    const number = document.createElement("div");
+    number.className = "number";
+    number.textContent = String(channel.no).padStart(2, "0");
+
+    const star = document.createElement("button");
+    star.className = "star";
+    star.type = "button";
+    star.textContent = isFav(channel.url) ? "⭐" : "☆";
+    star.addEventListener("click", (event) => toggleFav(channel, event));
+
+    cardTop.appendChild(number);
+    cardTop.appendChild(star);
+
+    const name = document.createElement("div");
+    name.className = "channel-name";
+    name.textContent = channel.name;
+
+    const group = document.createElement("div");
+    group.className = "channel-group";
+    group.textContent = channel.group;
+
+    card.appendChild(cardTop);
+    card.appendChild(name);
+    card.appendChild(group);
+
+    card.addEventListener("click", () => playChannel(channel));
+    channelGrid.appendChild(card);
+  });
+}
+
+function playChannel(channel) {
+  welcome.style.display = "none";
+  playerBox.style.display = "block";
+  activeUrl = channel.url;
+
+  document.getElementById("currentChannel").textContent = channel.name;
+  document.getElementById("currentGroup").textContent = `${channel.group} • Kanal ${channel.no}`;
+
+  statusText.textContent = "Učitavanje strima...";
+  errorText.textContent = "";
+
+  renderChannels();
+
+  if (hls) {
+    hls.destroy();
+    hls = null;
+  }
+
+  video.pause();
+  video.removeAttribute("src");
+  video.load();
+
+  if (location.protocol === "https:" && channel.url.startsWith("http://")) {
+    errorText.textContent = "Ovaj kanal koristi HTTP link. HTTPS sajt može blokirati HTTP stream.";
+  }
+
+  if (Hls.isSupported()) {
+    hls = new Hls({
+      enableWorker: true,
+      lowLatencyMode: true,
+      maxBufferLength: 30
+    });
+
+    hls.loadSource(channel.url);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+      video.play().catch(() => {
+        statusText.textContent = "Klikni Play za pokretanje.";
+      });
+      statusText.textContent = "Strim je pokrenut.";
+    });
+
+    hls.on(Hls.Events.ERROR, (event, data) => {
+      if (data.fatal) {
+        statusText.textContent = "Greška u strimu.";
+        errorText.textContent = "Strim nije dostupan, CORS blokada, mixed content ili offline link.";
+      }
+    });
+  } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+    video.src = channel.url;
+    video.play();
+    statusText.textContent = "Strim je pokrenut.";
+  } else {
+    statusText.textContent = "Browser ne podržava HLS.";
+    errorText.textContent = "Probaj Chrome, Edge, Safari ili drugi moderan browser.";
+  }
+}
+
+document.getElementById("backBtn").addEventListener("click", goBack);
+search.addEventListener("input", renderChannels);
+
+document.getElementById("allBtn").addEventListener("click", () => {
+  showFavorites = false;
+  document.getElementById("allBtn").classList.add("btn");
+  renderChannels();
+});
+
+document.getElementById("favBtn").addEventListener("click", () => {
+  showFavorites = true;
+  renderChannels();
+});
+
 loadChannels();
 </script>
 </body>
