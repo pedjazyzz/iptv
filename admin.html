@@ -41,7 +41,7 @@ select option{color:#111}.content{display:none}.error{color:#ff7777;margin-top:7
 <header><div><h1>⚙ Admin Panel</h1><p class="muted">Dodaj kanal i preuzmi novi channels.json</p></div><a class="btn secondary" href="index.html">← Sajt</a></header>
 
 <div id="login" class="welcome">
-  <div><h2>Admin login</h2><p class="muted">Lozinka: admin123</p><br><input id="pass" type="password" placeholder="Lozinka"><br><br><button class="btn" onclick="login()">Uloguj se</button></div>
+  <div><h2>Admin login</h2><p class="muted">Unesite vasu lozinku</p><br><input id="pass" type="password" placeholder="Lozinka"><br><br><button class="btn" onclick="login()">Uloguj se</button></div>
 </div>
 
 <div id="admin" style="display:none">
@@ -250,7 +250,7 @@ let channels = [
   }
 ];
 
-function login(){ if(document.getElementById("pass").value==="admin123"){document.getElementById("login").style.display="none";document.getElementById("admin").style.display="block";render()} else alert("Pogrešna lozinka") }
+function login(){ if(document.getElementById("pass").value==="milin2580"){document.getElementById("login").style.display="none";document.getElementById("admin").style.display="block";render()} else alert("Pogrešna lozinka") }
 
 function addChannel(){
   const name=document.getElementById("name").value.trim(), group=document.getElementById("group").value, url=document.getElementById("url").value.trim();
