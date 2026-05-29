@@ -17,7 +17,7 @@ h1{font-size:34px}.muted{color:var(--muted);margin-top:5px}
 .player-box{display:none;position:relative;background:#000;border-radius:30px;overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 90px rgba(0,0,0,.65);margin-bottom:20px}
 video{width:100%;height:62vh;background:#000;display:block}
 .now{position:absolute;left:18px;bottom:18px;padding:14px 16px;border-radius:18px;background:rgba(0,0,0,.58);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px)}
-.welcome{border:1px solid var(--border);border-radius:30px;min-height:260px;display:grid;place-items:center;text-align:center;padding:30px;margin-bottom:22px;background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.035));box-shadow:0 25px 70px rgba(0,0,0,.38)}
+.welcome{display:none!important}
 .welcome h2{font-size:34px;margin:10px 0}
 .section-title{display:flex;justify-content:space-between;align-items:center;margin:10px 0 16px;padding:14px 16px;border-radius:20px;background:rgba(255,255,255,.055);border:1px solid var(--border)}
 .category-grid,.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
@@ -32,6 +32,46 @@ video{width:100%;height:62vh;background:#000;display:block}
 select option{color:#111}.content{display:none}.error{color:#ff7777;margin-top:7px}
 .info{border:1px solid var(--border);border-radius:22px;background:rgba(255,255,255,.055);padding:16px;margin-top:18px}
 @media(max-width:800px){body{padding:12px}header,.topbar{grid-template-columns:1fr;flex-direction:column;align-items:stretch}video{height:42vh}h1{font-size:27px}.grid,.category-grid{grid-template-columns:repeat(auto-fill,minmax(135px,1fr))}.channel-name{font-size:15px}}
+
+header{
+  min-height:72px;
+  padding:14px 18px;
+  border:1px solid var(--border);
+  border-radius:24px;
+  background:rgba(255,255,255,.055);
+  backdrop-filter:blur(14px);
+}
+header h1{font-size:30px}
+header .muted{font-size:13px}
+.category-grid{
+  grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+}
+.category-card{
+  min-height:132px;
+  padding:18px;
+}
+.category-card h3{
+  font-size:20px;
+  margin-bottom:8px;
+}
+.category-card p{
+  color:rgba(255,255,255,.72);
+  font-weight:700;
+}
+.category-card .category-icon{
+  font-size:34px;
+  margin-bottom:12px;
+}
+.section-title{
+  margin-top:0;
+  margin-bottom:14px;
+}
+.content .section-title{
+  margin-top:14px;
+}
+.player-box{
+  margin-top:16px;
+}
 </style>
 </head>
 <body>
@@ -39,18 +79,12 @@ select option{color:#111}.content{display:none}.error{color:#ff7777;margin-top:7
 <header>
   <div>
     <h1>🎬 Cinema IPTV</h1>
-    <p class="muted">Premium TV Kanali</p>
+    <p class="muted">Izaberi kategoriju i pokreni kanal</p>
   </div>
   <a class="btn secondary" href="admin.html">⚙ Admin</a>
 </header>
 
-<div id="welcome" class="welcome">
-  <div>
-    <div style="font-size:58px">📂</div>
-    <h2>Izaberi kategoriju</h2>
-    <p class="muted">Klikni kategoriju, zatim izaberi kanal.</p>
-  </div>
-</div>
+<div id="welcome" class="welcome"></div>
 
 <div id="playerBox" class="player-box">
   <video id="video" controls autoplay playsinline></video>
@@ -144,7 +178,16 @@ async function loadChannels() {
 }
 
 function renderCategories() {
-  const groups = [...new Set(channels.map(c => c.group))];
+  const defaultGroups = [
+    "🎬 Filmovi i Serije",
+    "🎵 Muzički Kanali",
+    "🌍 Dokumentarni",
+    "⚽ Sportski Kanali",
+    "👶 Dečiji Kanali",
+    "📺 Ex-YU Kanali"
+  ];
+
+  const groups = [...new Set([...defaultGroups, ...channels.map(c => c.group)])];
 
   document.getElementById("categoryCount").textContent = groups.length + " kategorija";
   categoryGrid.innerHTML = "";
@@ -159,7 +202,7 @@ function renderCategories() {
     card.innerHTML = `
       <div class="category-icon">${icon}</div>
       <h3>${cleanTitle}</h3>
-      <p>${count} kanala</p>
+      <p>${count} ${count === 1 ? "kanal" : "kanala"}</p>
     `;
 
     card.addEventListener("click", () => openCategory(group));
@@ -172,7 +215,7 @@ function openCategory(group) {
   showFavorites = false;
   search.value = "";
 
-  welcome.style.display = "grid";
+  welcome.style.display = "none";
   playerBox.style.display = "none";
   categoryScreen.style.display = "none";
   contentArea.style.display = "block";
@@ -186,7 +229,7 @@ function openCategory(group) {
 function goBack() {
   contentArea.style.display = "none";
   categoryScreen.style.display = "block";
-  welcome.style.display = "grid";
+  welcome.style.display = "none";
   playerBox.style.display = "none";
 
   if (hls) {
@@ -232,7 +275,7 @@ function renderChannels() {
   if (!list.length) {
     const p = document.createElement("p");
     p.className = "muted";
-    p.textContent = "Nema kanala za prikaz.";
+    p.textContent = "Ova kategorija je prazna. Dodaj kanale kroz admin panel.";
     channelGrid.appendChild(p);
     return;
   }
