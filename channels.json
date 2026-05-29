@@ -1,6 +1,12 @@
 [
   {
     "no": 1,
+    "name": "History Channel",
+    "group": "🌍 Dokumentarni",
+    "url": "https://de1.dstv.cx/HistoryChannel/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 1,
     "name": "HBO",
     "group": "🎬 Filmovi i Serije",
     "url": "https://de1.dstv.cx/HBO/index.m3u8"
