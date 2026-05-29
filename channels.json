@@ -1,12 +1,6 @@
 [
   {
     "no": 1,
-    "name": "History Channel",
-    "group": "🌍 Dokumentarni",
-    "url": "https://de1.dstv.cx/HistoryChannel/tracks-v1a1/mono.ts.m3u8"
-  },
-  {
-    "no": 1,
     "name": "HBO",
     "group": "🎬 Filmovi i Serije",
     "url": "https://de1.dstv.cx/HBO/index.m3u8"
@@ -184,5 +178,29 @@
     "name": "CroMax Select 6 HD",
     "group": "🎬 Filmovi i Serije",
     "url": "https://de1.dstv.cx/CroMaxSelect6/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 31,
+    "name": "Pink Movies",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/PinkMovies/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 32,
+    "name": "Pink Thriller",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/PinkThriller/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 33,
+    "name": "Pink Action",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/PinkAction/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 34,
+    "name": "Pink Premium",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/PinkPremium/tracks-v1a1/mono.ts.m3u8"
   }
 ]
