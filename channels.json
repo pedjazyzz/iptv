@@ -283,6 +283,30 @@
   },
   {
     "no": 1,
+    "name": "Cartoon Network",
+    "group": "👶 Dečiji Kanali",
+    "url": "https://de1.dstv.cx/CartoonNetwork/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 2,
+    "name": "Minimax",
+    "group": "👶 Dečiji Kanali",
+    "url": "https://de1.dstv.cx/Minimax/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 3,
+    "name": "Pink Kids",
+    "group": "👶 Dečiji Kanali",
+    "url": "https://de1.dstv.cx/PinkKids/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 4,
+    "name": "Pink Super Kids",
+    "group": "👶 Dečiji Kanali",
+    "url": "https://de1.dstv.cx/PinkSuperKids/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 1,
     "name": "RTS 1 HD",
     "group": "📺 Ex-YU Kanali",
     "url": "https://de1.dstv.cx/RTS1HD/tracks-v1a1/mono.ts.m3u8"
