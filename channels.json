@@ -270,6 +270,18 @@
     "url": "https://de1.dstv.cx/PinkComedy/tracks-v1a1/mono.ts.m3u8"
   },
   {
+    "no": 42,
+    "name": "M1 Film",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/M1Film/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 43,
+    "name": "Kino TV",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/KinoTVSLO/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
     "no": 1,
     "name": "RTS 1 HD",
     "group": "📺 Ex-YU Kanali",
