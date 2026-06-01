@@ -24,6 +24,12 @@
     "url": "https://de1.dstv.cx/HistoryChannel2/tracks-v1a1/mono.ts.m3u8"
   },
   {
+    "no": 44,
+    "name": "Discovery Channel",
+    "group": "🌍 Dokumentarni",
+    "url": "https://de1.dstv.cx/DiscoveryChannel/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
     "no": 1,
     "name": "HBO",
     "group": "🎬 Filmovi i Serije",
@@ -280,6 +286,12 @@
     "name": "Kino TV",
     "group": "🎬 Filmovi i Serije",
     "url": "https://de1.dstv.cx/KinoTVSLO/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 1,
+    "name": "Jugoton TV",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://de1.dstv.cx/Jugoton/tracks-v1a1/mono.ts.m3u8"
   },
   {
     "no": 1,
