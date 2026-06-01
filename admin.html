@@ -43,7 +43,7 @@ select option{color:#111}.actions{display:flex;flex-wrap:wrap;gap:10px}
   <div>
     <div style="font-size:54px">🔐</div>
     <h2>Admin login</h2>
-    <p class="muted">Lozinka: admin123</p><br>
+    <p class="muted">Unesite vasu lozinku</p><br>
     <input id="pass" type="password" placeholder="Unesi lozinku"><br><br>
     <button class="btn" onclick="login()">Uloguj se</button>
   </div>
@@ -307,7 +307,7 @@ let duplicateIndex = -1;
 let editIndex = -1;
 
 function login(){
-  if(document.getElementById("pass").value === "admin123"){
+  if(document.getElementById("pass").value === "milin2580"){
     document.getElementById("login").style.display="none";
     document.getElementById("panel").style.display="block";
     render();
