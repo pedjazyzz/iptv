@@ -394,5 +394,17 @@
     "name": "RTS Kolo",
     "group": "📺 Ex-YU Kanali",
     "url": "https://de1.dstv.cx/RTSKolo/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 14,
+    "name": "Narodna TV",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://edge8.pink.rs/narodnatv/chunklist_w357343622.m3u8"
+  },
+  {
+    "no": 15,
+    "name": "N1",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://n1-bg-ku-r1-1.umn.cdn.united.cloud/stream/playlist/hls/?session=89caaa02-c1bb-4b46-bde8-13f131c930ec&stream=sp350&player=m3u8"
   }
 ]
