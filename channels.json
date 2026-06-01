@@ -1,6 +1,12 @@
 [
   {
     "no": 1,
+    "name": "Viasat Explore",
+    "group": "🌍 Dokumentarni",
+    "url": "https://de1.dstv.cx/ViasatExplore/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 1,
     "name": "HBO",
     "group": "🎬 Filmovi i Serije",
     "url": "https://de1.dstv.cx/HBO/index.m3u8"
@@ -244,5 +250,17 @@
     "name": "Pink Comedy",
     "group": "🎬 Filmovi i Serije",
     "url": "https://de1.dstv.cx/PinkComedy/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 42,
+    "name": "Viasat History",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/HistoryChannel/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 43,
+    "name": "History 2",
+    "group": "🌍 Dokumentarni",
+    "url": "https://de1.dstv.cx/HistoryChannel2/tracks-v1a1/mono.ts.m3u8"
   }
 ]
