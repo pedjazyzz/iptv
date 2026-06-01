@@ -248,25 +248,27 @@ video{width:100%;height:64vh;background:#000;display:block}
   background:rgba(255,255,255,.13);
   color:#fff;font-size:19px;cursor:pointer;
 }
-.monogram{
-  height:58px;
-  display:grid;
-  place-items:center;
-  font-size:25px;
-  font-weight:950;
-  letter-spacing:.8px;
+.channel-name{
   text-align:center;
-  text-transform:uppercase;
+  font-size:20px;
+  font-weight:950;
+  line-height:1.18;
+  margin-top:20px;
 }
-.channel-name{font-size:17px;font-weight:950;line-height:1.15}
-.channel-group{color:rgba(255,255,255,.72);font-size:12px;margin-top:5px}
+.channel-group{
+  text-align:center;
+  color:rgba(255,255,255,.72);
+  font-size:12px;
+  margin-top:8px;
+}
 .watch{
   opacity:0;
   transform:translateY(8px);
   transition:.22s;
-  margin-top:10px;
+  margin-top:16px;
   font-weight:950;
   color:#fff;
+  text-align:center;
 }
 .card:hover .watch,.card.active .watch{opacity:1;transform:translateY(0)}
 .info{
@@ -296,7 +298,6 @@ video{width:100%;height:64vh;background:#000;display:block}
   video{height:42vh}
   .grid,.category-grid{grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:12px}
   .card{min-height:145px;padding:13px}
-  .monogram{font-size:20px}
   .channel-name{font-size:15px}
   .player-actions{position:static;background:#050505;padding:10px}
 }
@@ -308,7 +309,7 @@ video{width:100%;height:64vh;background:#000;display:block}
 <header>
   <div class="brand">
     <h1>🎬 Cinema IPTV</h1>
-    <p class="muted">Premium TV portal.</p>
+    <p class="muted">Premium TV portal sa kategorijama i grid kanalima</p>
   </div>
   <div class="nav">
     <button class="btn secondary" onclick="goHome()">Početna</button>
@@ -321,7 +322,7 @@ video{width:100%;height:64vh;background:#000;display:block}
   <div class="hero-row">
     <div>
       <h2>Gledaj TV u modernom cinema stilu</h2>
-      <p class="muted">Izaberi kategoriju, otvori kanal i uživaj u velikom playeru.</p>
+      <p class="muted">Izaberi kategoriju, otvori kanal i uživaj u velikom playeru. Kartice su sređene kao streaming platforma.</p>
     </div>
     <div class="hero-stat">
       <div id="totalChannels" class="pill">0 kanala</div>
@@ -471,9 +472,6 @@ function showOnlyFavorites(){
   renderChannels();
 }
 
-function getInitials(name){
-  return name.split(/\\s+/).map(x=>x[0]).join("").slice(0,4);
-}
 
 function filteredList(){
   const q=search.value.toLowerCase();
@@ -499,7 +497,6 @@ function renderChannels(){
           <div class="number">${String(ch.no).padStart(2,"0")}</div>
           <button class="star" type="button">${isFav(ch.url)?"⭐":"☆"}</button>
         </div>
-        <div class="monogram">${getInitials(ch.name)}</div>
         <div>
           <div class="channel-name">${ch.name}</div>
           <div class="channel-group">${ch.group}</div>
