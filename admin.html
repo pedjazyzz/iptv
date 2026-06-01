@@ -1,67 +1,120 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin - Cinema IPTV</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - Cinema IPTV</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 :root{--border:rgba(255,255,255,.12);--muted:#aaaabb;--red:#e50914;--red2:#ff3d49;--gold:#ffd166}
-body{min-height:100vh;color:#fff;background:radial-gradient(circle at top left,rgba(229,9,20,.32),transparent 35%),radial-gradient(circle at bottom right,rgba(255,209,102,.12),transparent 35%),linear-gradient(135deg,#07070b,#151522 60%,#09090f);padding:22px}
-.container{max-width:1400px;margin:auto}
-header{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:20px}
-h1{font-size:34px}.muted{color:var(--muted);margin-top:5px}
-.badge,.btn{border:1px solid var(--border);border-radius:999px;padding:12px 16px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-weight:900;cursor:pointer;text-decoration:none}
-.btn.secondary{background:rgba(255,255,255,.08)}
-.player-box{display:none;position:relative;background:#000;border-radius:30px;overflow:hidden;border:1px solid var(--border);box-shadow:0 30px 90px rgba(0,0,0,.65);margin-bottom:20px}
-video{width:100%;height:62vh;background:#000;display:block}
-.now{position:absolute;left:18px;bottom:18px;padding:14px 16px;border-radius:18px;background:rgba(0,0,0,.58);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px)}
-.welcome{border:1px solid var(--border);border-radius:30px;min-height:260px;display:grid;place-items:center;text-align:center;padding:30px;margin-bottom:22px;background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.035));box-shadow:0 25px 70px rgba(0,0,0,.38)}
-.welcome h2{font-size:34px;margin:10px 0}
-.section-title{display:flex;justify-content:space-between;align-items:center;margin:10px 0 16px;padding:14px 16px;border-radius:20px;background:rgba(255,255,255,.055);border:1px solid var(--border)}
-.category-grid,.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
-.category-card,.card{min-height:150px;border:1px solid var(--border);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.035));color:#fff;cursor:pointer;padding:18px;text-align:left;transition:.24s;position:relative;overflow:hidden}
-.category-card:hover,.card:hover,.card.active{transform:translateY(-5px) scale(1.02);background:linear-gradient(145deg,rgba(229,9,20,.95),rgba(255,61,73,.78));box-shadow:0 18px 45px rgba(229,9,20,.28)}
-.category-icon{font-size:40px;margin-bottom:12px}.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
-.number{width:42px;height:42px;border-radius:15px;background:rgba(0,0,0,.25);display:grid;place-items:center;color:var(--gold);font-weight:950}
-.star{border:none;border-radius:14px;width:38px;height:38px;background:rgba(255,255,255,.13);color:#fff;font-size:19px;cursor:pointer}
-.channel-name{font-size:18px;font-weight:950}.channel-group{color:rgba(255,255,255,.72);font-size:12px;margin-top:5px}
-.topbar{display:grid;grid-template-columns:1fr auto auto;gap:12px;margin-bottom:18px}
-.search,input,select{width:100%;padding:14px 15px;border-radius:16px;border:1px solid var(--border);outline:none;background:rgba(255,255,255,.08);color:#fff}
-select option{color:#111}.content{display:none}.error{color:#ff7777;margin-top:7px}
-.info{border:1px solid var(--border);border-radius:22px;background:rgba(255,255,255,.055);padding:16px;margin-top:18px}
-@media(max-width:800px){body{padding:12px}header,.topbar{grid-template-columns:1fr;flex-direction:column;align-items:stretch}video{height:42vh}h1{font-size:27px}.grid,.category-grid{grid-template-columns:repeat(auto-fill,minmax(135px,1fr))}.channel-name{font-size:15px}}
-
-.form{display:grid;gap:12px;max-width:760px;margin:auto} textarea{width:100%;min-height:260px;border-radius:18px;border:1px solid var(--border);background:rgba(255,255,255,.08);color:#fff;padding:14px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px} @media(max-width:800px){.row{grid-template-columns:1fr}}
-.list{display:grid;gap:8px;margin-top:18px} .item{display:grid;grid-template-columns:1fr auto;gap:10px;padding:12px;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.06)} .danger{background:rgba(255,70,70,.2)}
+body{min-height:100vh;color:#fff;background:radial-gradient(circle at top left,rgba(229,9,20,.3),transparent 35%),linear-gradient(135deg,#07070b,#151522 60%,#09090f);padding:22px}
+.container{max-width:1200px;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:20px;padding:16px 18px;border:1px solid var(--border);border-radius:24px;background:rgba(255,255,255,.055)}
+h1{font-size:30px}.muted{color:var(--muted);line-height:1.45}
+.btn{border:1px solid var(--border);border-radius:16px;padding:12px 15px;background:linear-gradient(135deg,var(--red),var(--red2));color:#fff;font-weight:900;cursor:pointer;text-decoration:none}
+.btn.secondary{background:rgba(255,255,255,.08)}.btn.danger{background:rgba(255,70,70,.22)}
+.login{min-height:260px;display:grid;place-items:center;text-align:center;border:1px solid var(--border);border-radius:28px;background:rgba(255,255,255,.055)}
+.panel{display:none}.dashboard{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:18px}
+.stat{border:1px solid var(--border);border-radius:20px;padding:15px;background:rgba(255,255,255,.06)}
+.stat strong{display:block;font-size:28px;color:var(--gold);margin-bottom:4px}.stat span{color:var(--muted);font-weight:800}
+.box{border:1px solid var(--border);border-radius:24px;padding:16px;background:rgba(255,255,255,.055);margin-bottom:16px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+input,select{width:100%;padding:13px 14px;border-radius:15px;border:1px solid var(--border);background:rgba(255,255,255,.08);color:#fff;outline:none}
+select option{color:#111}.actions{display:flex;flex-wrap:wrap;gap:10px}
+.warn{display:none;border:1px solid rgba(255,209,102,.35);background:rgba(255,209,102,.09);padding:14px;border-radius:18px;margin:12px 0}
+.warn h3{color:var(--gold);margin-bottom:6px}
+.topbar{display:grid;grid-template-columns:1fr 220px auto;gap:12px;margin-bottom:16px}
+.list{display:grid;gap:9px}.item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;border:1px solid var(--border);border-radius:18px;padding:12px;background:rgba(255,255,255,.06)}
+.item small{color:var(--muted);word-break:break-all;line-height:1.35}.item-actions{display:flex;gap:8px}
+@media(max-width:800px){body{padding:12px}header,.row,.topbar,.item{grid-template-columns:1fr;flex-direction:column;align-items:stretch}.item-actions{display:grid;grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <div class="container">
-<header><div><h1>⚙ Admin Panel</h1><p class="muted">Dodaj kanal i preuzmi novi channels.json</p></div><a class="btn secondary" href="index.html">← Sajt</a></header>
+<header>
+  <div>
+    <h1>⚙ Admin Panel</h1>
+    <p class="muted">Importuj trenutni JSON, dodaj/edituj kanale, pa exportuj novi channels.json.</p>
+  </div>
+  <a class="btn secondary" href="index.html">← Nazad na sajt</a>
+</header>
 
-<div id="login" class="welcome">
-  <div><h2>Admin login</h2><p class="muted">Unesite vasu lozinku</p><br><input id="pass" type="password" placeholder="Lozinka"><br><br><button class="btn" onclick="login()">Uloguj se</button></div>
+<div id="login" class="login">
+  <div>
+    <div style="font-size:54px">🔐</div>
+    <h2>Admin login</h2>
+    <p class="muted">Lozinka: admin123</p><br>
+    <input id="pass" type="password" placeholder="Unesi lozinku"><br><br>
+    <button class="btn" onclick="login()">Uloguj se</button>
+  </div>
 </div>
 
-<div id="admin" style="display:none">
-  <div class="form">
+<div id="panel" class="panel">
+  <div class="box">
+    <p class="muted"><b>Pravilno korišćenje:</b> prvo importuj poslednji channels.json sa sajta, zatim dodaj kanale, pa klikni Download channels.json. Export automatski pravi i backup.</p>
+  </div>
+
+  <div id="dashboard" class="dashboard"></div>
+
+  <div class="box">
     <div class="row">
-      <input id="name" placeholder="Naziv kanala, npr. MTV Hits">
+      <input id="name" placeholder="Naziv kanala, npr. Discovery HD">
       <input id="no" type="number" placeholder="Broj kanala, npr. 101">
     </div>
     <div class="row">
       <select id="group">
-        <option>🎬 Filmovi i Serije</option><option>🎵 Muzički Kanali</option><option>🌍 Dokumentarni</option><option>⚽ Sportski Kanali</option><option>👶 Dečiji Kanali</option><option>📺 Ex-YU Kanali</option>
+        <option>🎬 Filmovi i Serije</option>
+        <option>🎵 Muzički Kanali</option>
+        <option>🌍 Dokumentarni</option>
+        <option>⚽ Sportski Kanali</option>
+        <option>👶 Dečiji Kanali</option>
+        <option>📺 Ex-YU Kanali</option>
       </select>
       <input id="url" placeholder="M3U8 link">
     </div>
-    <button class="btn" onclick="addChannel()">Dodaj kanal</button>
-    <button class="btn secondary" onclick="downloadJson()">Download channels.json</button>
-    <label class="muted">Import postojećeg channels.json fajla:</label>
-    <input type="file" accept=".json" onchange="importJson(event)">
-    <div class="info"><b>Kako koristiš:</b><p class="muted">Dodaš kanal → Download channels.json → uploaduješ taj fajl na hosting umesto starog.</p></div>
+
+    <div id="dupBox" class="warn">
+      <h3>⚠ Kanal već postoji</h3>
+      <p id="dupText" class="muted"></p><br>
+      <div class="actions">
+        <button class="btn" onclick="replaceDuplicate()">Zameni postojeći</button>
+        <button class="btn secondary" onclick="addAsNew()">Dodaj kao novi</button>
+        <button class="btn danger" onclick="cancelDuplicate()">Otkaži</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="addBtn" class="btn" onclick="addOrCheck()">Dodaj kanal</button>
+      <button id="saveBtn" class="btn" style="display:none" onclick="saveEdit()">Sačuvaj izmene</button>
+      <button id="cancelBtn" class="btn secondary" style="display:none" onclick="cancelEdit()">Otkaži edit</button>
+    </div>
   </div>
+
+  <div class="box">
+    <div class="actions">
+      <label class="btn secondary">Import channels.json
+        <input type="file" accept=".json" onchange="importJson(event)" style="display:none">
+      </label>
+      <button class="btn" onclick="downloadMain()">Download channels.json</button>
+      <button class="btn secondary" onclick="downloadBackup()">Download backup</button>
+      <button class="btn danger" onclick="clearAll()">Obriši sve</button>
+    </div>
+  </div>
+
+  <div class="topbar">
+    <input id="search" placeholder="Pretraži u adminu..." oninput="render()">
+    <select id="filter" onchange="render()">
+      <option value="">Sve kategorije</option>
+      <option>🎬 Filmovi i Serije</option>
+      <option>🎵 Muzički Kanali</option>
+      <option>🌍 Dokumentarni</option>
+      <option>⚽ Sportski Kanali</option>
+      <option>👶 Dečiji Kanali</option>
+      <option>📺 Ex-YU Kanali</option>
+    </select>
+    <button class="btn secondary" onclick="renumber()">Presloži brojeve</button>
+  </div>
+
   <div id="list" class="list"></div>
 </div>
 </div>
@@ -249,37 +302,138 @@ let channels = [
     "url": "https://de1.dstv.cx/CroMaxSelect6/tracks-v1a1/mono.ts.m3u8"
   }
 ];
+let pending = null;
+let duplicateIndex = -1;
+let editIndex = -1;
 
-function login(){ if(document.getElementById("pass").value==="milin2580"){document.getElementById("login").style.display="none";document.getElementById("admin").style.display="block";render()} else alert("Pogrešna lozinka") }
-
-function addChannel(){
-  const name=document.getElementById("name").value.trim(), group=document.getElementById("group").value, url=document.getElementById("url").value.trim();
-  let no=Number(document.getElementById("no").value);
-  if(!name||!url) return alert("Unesi naziv i link.");
-  if(!url.startsWith("http://")&&!url.startsWith("https://")) return alert("Link mora početi sa http:// ili https://");
-  if(!no){const same=channels.filter(c=>c.group===group); no=same.length?Math.max(...same.map(c=>Number(c.no)||0))+1:1}
-  channels.push({no,name,group,url});
-  channels.sort((a,b)=>a.group.localeCompare(b.group)||a.no-b.no);
-  document.getElementById("name").value="";document.getElementById("url").value="";document.getElementById("no").value="";
-  render();
+function login(){
+  if(document.getElementById("pass").value === "admin123"){
+    document.getElementById("login").style.display="none";
+    document.getElementById("panel").style.display="block";
+    render();
+  } else alert("Pogrešna lozinka.");
 }
 
-function del(i){ if(confirm("Obrisati kanal?")){channels.splice(i,1);render()} }
+function norm(v){return String(v||"").trim().toLowerCase()}
+
+function getForm(){
+  const name=document.getElementById("name").value.trim();
+  const group=document.getElementById("group").value;
+  const url=document.getElementById("url").value.trim();
+  let no=Number(document.getElementById("no").value);
+  if(!name||!url){alert("Unesi naziv i link.");return null}
+  if(!url.startsWith("http://")&&!url.startsWith("https://")){alert("Link mora početi sa http:// ili https://");return null}
+  if(!no){
+    const same=channels.filter(c=>c.group===group);
+    no=same.length?Math.max(...same.map(c=>Number(c.no)||0))+1:1;
+  }
+  return {no,name,group,url};
+}
+
+function clearForm(){
+  document.getElementById("name").value="";
+  document.getElementById("url").value="";
+  document.getElementById("no").value="";
+  document.getElementById("dupBox").style.display="none";
+  pending=null; duplicateIndex=-1;
+}
+
+function sortChannels(){channels.sort((a,b)=>String(a.group).localeCompare(String(b.group))+(String(a.group)===String(b.group)?Number(a.no)-Number(b.no):0))}
+
+function addOrCheck(){
+  const ch=getForm(); if(!ch)return;
+  const dup=channels.findIndex(c=>norm(c.name)===norm(ch.name)||norm(c.url)===norm(ch.url));
+  if(dup>=0){
+    pending=ch; duplicateIndex=dup;
+    document.getElementById("dupText").textContent="Postojeći: "+channels[dup].name+" / "+channels[dup].group;
+    document.getElementById("dupBox").style.display="block";
+    return;
+  }
+  channels.push(ch); sortChannels(); clearForm(); render(); alert("Kanal dodat.");
+}
+
+function replaceDuplicate(){if(pending&&duplicateIndex>=0){channels[duplicateIndex]=pending;sortChannels();clearForm();render();alert("Kanal zamenjen.")}}
+function addAsNew(){if(pending){channels.push(pending);sortChannels();clearForm();render();alert("Dodat kao novi.")}}
+function cancelDuplicate(){clearForm()}
+
+function editChannel(i){
+  const ch=channels[i]; editIndex=i;
+  document.getElementById("name").value=ch.name;
+  document.getElementById("group").value=ch.group;
+  document.getElementById("url").value=ch.url;
+  document.getElementById("no").value=ch.no;
+  document.getElementById("addBtn").style.display="none";
+  document.getElementById("saveBtn").style.display="inline-block";
+  document.getElementById("cancelBtn").style.display="inline-block";
+  scrollTo({top:0,behavior:"smooth"});
+}
+
+function saveEdit(){
+  const ch=getForm(); if(!ch||editIndex<0)return;
+  channels[editIndex]=ch; sortChannels(); cancelEdit(); render(); alert("Sačuvano.");
+}
+
+function cancelEdit(){
+  editIndex=-1; clearForm();
+  document.getElementById("addBtn").style.display="inline-block";
+  document.getElementById("saveBtn").style.display="none";
+  document.getElementById("cancelBtn").style.display="none";
+}
+
+function deleteChannel(i){if(confirm("Obrisati kanal?")){channels.splice(i,1);render()}}
+
+function renderDashboard(){
+  const groups=[...new Set(channels.map(c=>c.group))];
+  let html='<div class="stat"><strong>'+channels.length+'</strong><span>Ukupno kanala</span></div>';
+  groups.forEach(g=>{
+    const count=channels.filter(c=>c.group===g).length;
+    html+='<div class="stat"><strong>'+count+'</strong><span>'+g+'</span></div>';
+  });
+  document.getElementById("dashboard").innerHTML=html;
+}
 
 function render(){
-  document.getElementById("list").innerHTML=channels.map((c,i)=>`<div class="item"><div><b>${c.no}. ${c.name}</b><p class="muted">${c.group}<br>${c.url}</p></div><button class="btn danger" onclick="del(${i})">Obriši</button></div>`).join("");
+  renderDashboard();
+  const q=norm(document.getElementById("search").value);
+  const f=document.getElementById("filter").value;
+  const arr=channels.map((c,i)=>({...c,i})).filter(c=>(!f||c.group===f)&&(norm(c.name).includes(q)||norm(c.group).includes(q)||norm(c.url).includes(q))).sort((a,b)=>String(a.group).localeCompare(String(b.group))||Number(a.no)-Number(b.no));
+  document.getElementById("list").innerHTML=arr.length?arr.map(c=>'<div class="item"><div><b>'+c.no+'. '+c.name+'</b><small>'+c.group+'<br>'+c.url+'</small></div><div class="item-actions"><button class="btn secondary" onclick="editChannel('+c.i+')">Edit</button><button class="btn danger" onclick="deleteChannel('+c.i+')">Obriši</button></div></div>').join(""):'<p class="muted">Nema kanala.</p>';
 }
 
-function downloadJson(){
-  const blob=new Blob([JSON.stringify(channels,null,2)],{type:"application/json"});
-  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="channels.json"; a.click(); URL.revokeObjectURL(a.href);
+function stamp(){
+  const d=new Date(),p=n=>String(n).padStart(2,"0");
+  return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"_"+p(d.getHours())+"-"+p(d.getMinutes());
 }
+
+function downloadFile(name,content){
+  const blob=new Blob([content],{type:"application/json;charset=utf-8"});
+  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);
+}
+
+function downloadBackup(){downloadFile("channels_backup_"+stamp()+".json",JSON.stringify(channels,null,2))}
+function downloadMain(){downloadBackup();setTimeout(()=>downloadFile("channels.json",JSON.stringify(channels,null,2)),400)}
 
 function importJson(e){
-  const file=e.target.files[0]; if(!file) return;
-  const reader=new FileReader();
-  reader.onload=()=>{try{channels=JSON.parse(reader.result);render();alert("JSON učitan.")}catch(err){alert("Neispravan JSON.")}};
-  reader.readAsText(file);
+  const file=e.target.files[0]; if(!file)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    try{
+      const data=JSON.parse(r.result);
+      if(!Array.isArray(data))throw new Error();
+      channels=data.filter(c=>c&&c.name&&c.group&&c.url).map((c,i)=>({no:Number(c.no)||i+1,name:String(c.name),group:String(c.group),url:String(c.url)}));
+      sortChannels(); render(); alert("Učitano kanala: "+channels.length);
+    }catch(err){alert("Neispravan JSON.")}
+  };
+  r.readAsText(file);
+}
+
+function clearAll(){if(confirm("Obrisati sve iz admina? Prvo napravi backup.")){channels=[];render()}}
+
+function renumber(){
+  const f=document.getElementById("filter").value;
+  if(!f){alert("Prvo izaberi kategoriju u filteru.");return}
+  channels.filter(c=>c.group===f).sort((a,b)=>Number(a.no)-Number(b.no)).forEach((c,i)=>c.no=i+1);
+  render(); alert("Brojevi presloženi za: "+f);
 }
 </script>
 </body>
