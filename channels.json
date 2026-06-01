@@ -310,5 +310,41 @@
     "name": "Prva Plus",
     "group": "📺 Ex-YU Kanali",
     "url": "https://de1.dstv.cx/PrvaPlus/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 8,
+    "name": "Prva World",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/PrvaWorld/tracks-v1a1/mono.ts.m3u8?"
+  },
+  {
+    "no": 9,
+    "name": "Prva Kick",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/PrvaKick/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 10,
+    "name": "Prva Max",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/PrvaMax/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 11,
+    "name": "Prva Files",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/PrvaFiles/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 12,
+    "name": "Prva Life",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/PrvaLife/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 13,
+    "name": "RTS Kolo",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/RTSKolo/tracks-v1a1/mono.ts.m3u8"
   }
 ]
