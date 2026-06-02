@@ -324,6 +324,24 @@
     "url": "https://de1.dstv.cx/PinkSuperKids/tracks-v1a1/mono.ts.m3u8"
   },
   {
+    "no": 15,
+    "name": "N1",
+    "group": "📰 Informativni",
+    "url": "https://de1.dstv.cx/N1SRHD/tracks-v3a1/mono.ts.m3u8"
+  },
+  {
+    "no": 16,
+    "name": "EuronewsSRB",
+    "group": "📰 Informativni",
+    "url": "https://de1.dstv.cx/EuronewsSRB/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 17,
+    "name": "N1 BH",
+    "group": "📰 Informativni",
+    "url": "https://de1.dstv.cx/N1BH/tracks-v3a1/mono.ts.m3u8"
+  },
+  {
     "no": 1,
     "name": "RTS 1 HD",
     "group": "📺 Ex-YU Kanali",
@@ -406,17 +424,5 @@
     "name": "Narodna TV",
     "group": "📺 Ex-YU Kanali",
     "url": "https://edge8.pink.rs/narodnatv/chunklist_w357343622.m3u8"
-  },
-  {
-    "no": 15,
-    "name": "N1",
-    "group": "📺 Ex-YU Kanali",
-    "url": "https://de1.dstv.cx/N1SRHD/tracks-v3a1/mono.ts.m3u8"
-  },
-  {
-    "no": 16,
-    "name": "EuronewsSRB",
-    "group": "📺 Ex-YU Kanali",
-    "url": "https://de1.dstv.cx/EuronewsSRB/tracks-v1a1/mono.ts.m3u8"
   }
 ]
