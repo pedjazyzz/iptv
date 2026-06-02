@@ -294,6 +294,36 @@
     "url": "https://de1.dstv.cx/KinoTVSLO/tracks-v1a1/mono.ts.m3u8"
   },
   {
+    "no": 44,
+    "name": "Pink Premium",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/PinkPremium/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 45,
+    "name": "PinkSoap",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/PinkSoap/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 46,
+    "name": "Pink Classic",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/PinkClassic/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 47,
+    "name": "Pink Western",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/PinkWestern/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 48,
+    "name": "Pink World Cinema",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/PinkWorldCinema/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
     "no": 1,
     "name": "Jugoton TV",
     "group": "🎵 Muzički Kanali",
