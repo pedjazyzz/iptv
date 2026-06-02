@@ -582,7 +582,9 @@ async function loadEPG(){
     epgData=data.channels||{};
     channelNameToId=data.channelNameToId||{};
 
-    renderChannels();
+    if(currentCategory){
+      renderChannels();
+    }
   }catch(err){
     console.log("EPG nije učitan",err);
   }
@@ -632,21 +634,33 @@ function findEpgItem(ch){
   return null;
 }
 
-function getEpgHtml(ch){
+function addEpgToCard(container,ch){
   const item=findEpgItem(ch);
 
   if(!item || !item.now){
-    return `${getEpgHtml(ch)}`;
+    const group=document.createElement("div");
+    group.className="channel-group";
+    group.textContent=ch.group;
+    container.appendChild(group);
+    return;
   }
 
-  const now=item.now;
-  const next=item.next;
+  const now=document.createElement("div");
+  now.className="epg-now";
+  now.textContent="🎬 " + (item.now.title || "Trenutno na programu");
+  container.appendChild(now);
 
-  return `
-    <div class="epg-now">🎬 ${now.title||"Trenutno na programu"}</div>
-    <div class="epg-time">${formatTime(now.start)} - ${formatTime(now.stop)}</div>
-    ${next && next.title ? `<div class="epg-next">Sledeće: ${next.title}</div>` : ""}
-  `;
+  const time=document.createElement("div");
+  time.className="epg-time";
+  time.textContent=formatTime(item.now.start) + " - " + formatTime(item.now.stop);
+  container.appendChild(time);
+
+  if(item.next && item.next.title){
+    const next=document.createElement("div");
+    next.className="epg-next";
+    next.textContent="Sledeće: " + item.next.title;
+    container.appendChild(next);
+  }
 }
 
 
@@ -661,26 +675,56 @@ function renderChannels(){
   const total=currentCategory==="⭐ Favoriti"?favorites.length:channels.filter(c=>c.group===currentCategory).length;
   document.getElementById("channelCount").textContent=`${list.length}/${total}`;
   channelGrid.innerHTML="";
+
   if(!list.length){
-    channelGrid.innerHTML='<p class="muted">Nema kanala za prikaz.</p>';
+    const empty=document.createElement("p");
+    empty.className="muted";
+    empty.textContent="Nema kanala za prikaz.";
+    channelGrid.appendChild(empty);
     return;
   }
+
   list.forEach(ch=>{
     const card=document.createElement("button");
     card.className="card"+(ch.url===activeUrl?" active":"");
-    card.innerHTML=`
-      <div class="card-inner">
-        <div class="card-top">
-          <div class="number">${String(ch.no).padStart(2,"0")}</div>
-          <button class="star" type="button">${isFav(ch.url)?"⭐":"☆"}</button>
-        </div>
-        <div>
-          <div class="channel-name">${ch.name}</div>
-          ${getEpgHtml(ch)}
-          <div class="watch">▶ Gledaj</div>
-        </div>
-      </div>`;
-    card.querySelector(".star").onclick=(e)=>toggleFav(ch,e);
+
+    const inner=document.createElement("div");
+    inner.className="card-inner";
+
+    const top=document.createElement("div");
+    top.className="card-top";
+
+    const number=document.createElement("div");
+    number.className="number";
+    number.textContent=String(ch.no).padStart(2,"0");
+
+    const star=document.createElement("button");
+    star.className="star";
+    star.type="button";
+    star.textContent=isFav(ch.url)?"⭐":"☆";
+    star.onclick=(e)=>toggleFav(ch,e);
+
+    top.appendChild(number);
+    top.appendChild(star);
+
+    const bottom=document.createElement("div");
+
+    const name=document.createElement("div");
+    name.className="channel-name";
+    name.textContent=ch.name;
+    bottom.appendChild(name);
+
+    addEpgToCard(bottom,ch);
+
+    const watch=document.createElement("div");
+    watch.className="watch";
+    watch.textContent="▶ Gledaj";
+    bottom.appendChild(watch);
+
+    inner.appendChild(top);
+    inner.appendChild(bottom);
+    card.appendChild(inner);
+
     card.onclick=()=>playChannel(ch);
     channelGrid.appendChild(card);
   });
