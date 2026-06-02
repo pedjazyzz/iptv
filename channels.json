@@ -1,6 +1,12 @@
 [
   {
     "no": 1,
+    "name": "Arena Sport 1 HD",
+    "group": "⚽ Sportski Kanali",
+    "url": "http://s1.stealtnet.com:80/11igorcurko/Q8rdDMUCPC/4655"
+  },
+  {
+    "no": 1,
     "name": "Viasat Explore",
     "group": "🌍 Dokumentarni",
     "url": "https://de1.dstv.cx/ViasatExplore/tracks-v1a1/mono.ts.m3u8"
