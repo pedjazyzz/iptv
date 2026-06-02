@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinema IPTV</title>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Inter,Arial,sans-serif}
+:root{
+  --border:rgba(255,255,255,.12);
+  --muted:#aaaabb;
+  --red:#e50914;
+  --red2:#ff3d49;
+  --gold:#ffd166;
+  --bg:#07070b;
+}
+body{
+  min-height:100vh;
+  color:#fff;
+  background:
+    radial-gradient(circle at top left,rgba(229,9,20,.32),transparent 32%),
+    radial-gradient(circle at bottom right,rgba(255,209,102,.12),transparent 34%),
+    linear-gradient(135deg,#07070b,#151522 62%,#08080d);
+  padding:20px;
+}
+.container{max-width:1440px;margin:auto}
+header{
+  min-height:74px;
+  padding:14px 18px;
+  border:1px solid var(--border);
+  border-radius:26px;
+  background:rgba(255,255,255,.055);
+  backdrop-filter:blur(16px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-bottom:18px;
+}
+.brand h1{font-size:30px;letter-spacing:.3px}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.logo-circle{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  overflow:hidden;
+  border:2px solid rgba(255,255,255,.15);
+  box-shadow:0 0 20px rgba(229,9,20,.25);
+  flex-shrink:0;
+}
+.logo-circle img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.brand-text{
+  display:flex;
+  flex-direction:column;
+}
+.brand-text h1{margin:0}
+
+.muted{color:var(--muted);line-height:1.45}
+.nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:12px 16px;
+  background:linear-gradient(135deg,var(--red),var(--red2));
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+  text-decoration:none;
+}
+.btn.secondary{background:rgba(255,255,255,.08)}
+.hero{
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:30px;
+  padding:24px;
+  background:
+    radial-gradient(circle at 20% 0%,rgba(229,9,20,.42),transparent 36%),
+    linear-gradient(145deg,rgba(255,255,255,.095),rgba(255,255,255,.035));
+  box-shadow:0 25px 80px rgba(0,0,0,.36);
+  margin-bottom:18px;
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  inset:auto -60px -120px auto;
+  width:320px;height:320px;
+  border-radius:50%;
+  background:rgba(255,209,102,.12);
+  filter:blur(8px);
+}
+.hero h2{font-size:34px;margin-bottom:8px}
+.hero p{max-width:760px}
+.hero-row{
+  position:relative;
+  z-index:2;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:18px;
+}
+.hero-stat{
+  display:grid;
+  grid-template-columns:repeat(2,auto);
+  gap:10px;
+}
+.pill{
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:10px 13px;
+  background:rgba(0,0,0,.25);
+  font-weight:900;
+}
+.player-box{
+  display:none;
+  position:relative;
+  background:#000;
+  border-radius:32px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:0 34px 100px rgba(0,0,0,.72);
+  margin-bottom:18px;
+}
+.player-box.cinema{
+  outline:9999px solid rgba(0,0,0,.34);
+}
+video{width:100%;height:64vh;background:#000;display:block}
+.now{
+  position:absolute;
+  left:18px;
+  bottom:18px;
+  padding:14px 16px;
+  border-radius:20px;
+  background:rgba(0,0,0,.60);
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(14px);
+}
+.now strong{font-size:20px}
+.player-actions{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  display:flex;
+  gap:10px;
+}
+.icon-btn{
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:16px;
+  padding:11px 13px;
+  color:#fff;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(12px);
+  cursor:pointer;
+  font-weight:900;
+}
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:0 0 14px;
+  padding:14px 16px;
+  border-radius:22px;
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--border);
+}
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(215px,1fr));
+  gap:16px;
+  margin-bottom:18px;
+}
+.category-card{
+  min-height:135px;
+  border:1px solid var(--border);
+  border-radius:26px;
+  padding:19px;
+  background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.035));
+  color:#fff;
+  cursor:pointer;
+  text-align:left;
+  transition:.25s;
+  position:relative;
+  overflow:hidden;
+}
+.category-card:before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:radial-gradient(circle,rgba(229,9,20,.25),transparent 45%);
+  opacity:0;
+  transition:.25s;
+}
+.category-card:hover{
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 20px 55px rgba(229,9,20,.28);
+  background:linear-gradient(145deg,rgba(229,9,20,.92),rgba(255,61,73,.72));
+}
+.category-card:hover:before{opacity:1}
+.category-card>*{position:relative;z-index:2}
+.category-icon{font-size:36px;margin-bottom:12px}
+.category-card h3{font-size:21px;margin-bottom:8px}
+.category-card p{color:rgba(255,255,255,.75);font-weight:800}
+.content{display:none}
+.topbar{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:12px;
+  margin:16px 0;
+}
+.search{
+  width:100%;
+  padding:15px 17px;
+  border-radius:18px;
+  border:1px solid var(--border);
+  outline:none;
+  background:rgba(255,255,255,.075);
+  color:#fff;
+  font-size:15px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+  gap:16px;
+}
+.card{
+  min-height:168px;
+  border:1px solid var(--border);
+  border-radius:26px;
+  background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.035));
+  color:#fff;
+  cursor:pointer;
+  padding:15px;
+  position:relative;
+  overflow:hidden;
+  transition:.24s ease;
+  text-align:left;
+}
+.card:before{
+  content:"";
+  position:absolute;
+  inset:-45%;
+  background:radial-gradient(circle,rgba(229,9,20,.22),transparent 42%);
+  opacity:0;
+  transition:.24s;
+}
+.card:hover,.card.active{
+  transform:translateY(-6px) scale(1.025);
+  background:linear-gradient(145deg,rgba(229,9,20,.96),rgba(255,61,73,.76));
+  border-color:rgba(255,255,255,.26);
+  box-shadow:0 20px 50px rgba(229,9,20,.30);
+}
+.card:hover:before,.card.active:before{opacity:1}
+.card-inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:space-between}
+.card-top{display:flex;justify-content:space-between;align-items:center}
+.number{
+  width:40px;height:40px;border-radius:15px;
+  background:rgba(0,0,0,.25);
+  display:grid;place-items:center;
+  color:var(--gold);font-weight:950;font-size:13px;
+}
+.star{
+  border:none;border-radius:14px;width:38px;height:38px;
+  background:rgba(255,255,255,.13);
+  color:#fff;font-size:19px;cursor:pointer;
+}
+.channel-name{
+  text-align:center;
+  font-size:20px;
+  font-weight:950;
+  line-height:1.18;
+  margin-top:20px;
+}
+.channel-group{
+  text-align:center;
+  color:rgba(255,255,255,.72);
+  font-size:12px;
+  margin-top:8px;
+}
+.epg-now{
+  text-align:center;
+  color:#fff;
+  font-size:12px;
+  font-weight:850;
+  margin-top:8px;
+  line-height:1.25;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.epg-time{
+  text-align:center;
+  color:var(--gold);
+  font-size:11px;
+  margin-top:5px;
+  font-weight:900;
+}
+.epg-next{
+  text-align:center;
+  color:rgba(255,255,255,.58);
+  font-size:11px;
+  margin-top:5px;
+  line-height:1.25;
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.watch{
+  opacity:0;
+  transform:translateY(8px);
+  transition:.22s;
+  margin-top:16px;
+  font-weight:950;
+  color:#fff;
+  text-align:center;
+}
+.card:hover .watch,.card.active .watch{opacity:1;transform:translateY(0)}
+.info{
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:rgba(255,255,255,.055);
+  padding:16px;
+  margin-top:18px;
+}
+.error{color:#ff7777;margin-top:7px}
+.loading{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(215px,1fr));
+  gap:16px;
+}
+.skeleton{
+  min-height:135px;
+  border-radius:26px;
+  background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.11),rgba(255,255,255,.05));
+  animation:pulse 1.2s infinite linear;
+}
+@keyframes pulse{0%{opacity:.45}50%{opacity:1}100%{opacity:.45}}
+@media(max-width:800px){
+  body{padding:12px}
+  header,.hero-row,.topbar{grid-template-columns:1fr;flex-direction:column;align-items:stretch}
+  .hero h2{font-size:27px}
+  video{height:42vh}
+  .grid,.category-grid{grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:12px}
+  .card{min-height:145px;padding:13px}
+  .channel-name{font-size:15px}
+  .player-actions{position:static;background:#050505;padding:10px}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<header>
+  <div class="brand">
+    <div class="logo-circle">
+      <img src="logo.png" alt="Cinema IPTV">
+    </div>
+    <div class="brand-text">
+      <h1>Cinema IPTV</h1>
+      <p class="muted">Premium TV portal.</p>
+    </div>
+  </div>
+  <div class="nav">
+    <button class="btn secondary" onclick="goHome()">Početna</button>
+    <button class="btn secondary" onclick="showOnlyFavorites()">⭐ Favoriti</button>
+    <a class="btn secondary" href="admin.html">⚙ Admin</a>
+  </div>
+</header>
+
+<section id="hero" class="hero">
+  <div class="hero-row">
+    <div>
+      <h2>Gledaj TV u modernom cinema stilu</h2>
+      <p class="muted">Izaberi kategoriju, otvori tv kanal i uživaj.</p>
+    </div>
+    <div class="hero-stat">
+      <div id="totalChannels" class="pill">0 kanala</div>
+      <div id="totalGroups" class="pill">0 kategorija</div>
+    </div>
+  </div>
+</section>
+
+<div id="playerBox" class="player-box">
+  <video id="video" controls autoplay playsinline></video>
+  <div class="now">
+    <strong id="currentChannel">Izaberi kanal</strong><br>
+    <span id="currentGroup" class="muted">Klikni na karticu</span>
+  </div>
+  <div class="player-actions">
+    <button class="icon-btn" onclick="toggleCurrentFavorite()">⭐ Favorit</button>
+    <button class="icon-btn" onclick="toggleCinema()">🎦 Cinema</button>
+    <button class="icon-btn" onclick="fullscreenVideo()">⛶ Fullscreen</button>
+  </div>
+</div>
+
+<div id="categoryScreen">
+  <div class="section-title">
+    <h2>📂 Kategorije</h2>
+    <div id="categoryCount" class="muted"></div>
+  </div>
+  <div id="categoryGrid" class="category-grid">
+    <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  </div>
+</div>
+
+<div id="contentArea" class="content">
+  <button class="btn secondary" onclick="goBack()">← Nazad na kategorije</button>
+  <div class="topbar">
+    <input id="search" class="search" placeholder="Pretraži kanale...">
+    <button id="allBtn" class="btn">Svi kanali</button>
+    <button id="favBtn" class="btn secondary">⭐ Favoriti</button>
+  </div>
+  <div class="section-title">
+    <h2 id="categoryTitle"></h2>
+    <div id="channelCount" style="color:var(--gold);font-weight:900"></div>
+  </div>
+  <div id="channelGrid" class="grid"></div>
+</div>
+
+<div class="info" style="text-align:center">
+  <p class="muted">🎬 Cinema IPTV © 2026</p>
+  <p id="status" class="muted" style="display:none">Učitavanje kanala...</p>
+  <p id="error" class="error" style="display:none"></p>
+</div>
+</div>
+
+<script>
+let channels=[], currentCategory="", activeUrl="", activeChannel=null, hls=null, showFavorites=false;
+let favorites=JSON.parse(localStorage.getItem("iptvFavorites")||"[]");
+let epgData={};
+let channelNameToId={};
+
+const epgAliases={
+  "hbo":"HBO.HD.(RS).rs",
+  "hbo 2":"HBO.2.HD.(RS).rs",
+  "hbo 3":"HBO.3.HD.(RS).rs",
+  "filmbox premium":"FilmBox.Premium.HD.(RS).rs",
+  "cinestar tv1":"CineStar.TV.1.HD.(RS).rs",
+  "cinestar tv 1":"CineStar.TV.1.HD.(RS).rs",
+  "cinestar premiere1":"CineStar.TV.Premiere.1.HD.(RS).rs",
+  "cinestar premiere 1":"CineStar.TV.Premiere.1.HD.(RS).rs",
+  "cinestar premiere2":"CineStar.TV.Premiere.2.HD.(RS).rs",
+  "cinestar premiere 2":"CineStar.TV.Premiere.2.HD.(RS).rs",
+  "cinestar action":"CineStar.TV.Action.HD.(RS).rs",
+  "cinestar comedy":"CineStar.TV.Comedy.&amp;.Family.HD.rs",
+  "cinestar fantasy":"CineStar.TV.Fantasy.HD.(RS).rs",
+  "scifi":"SCI.FI.HD.(RS).rs",
+  "sci fi":"SCI.FI.HD.(RS).rs",
+  "pink horror":"Pink.Horror.rs",
+  "rtl adria":"RTL.rs",
+  "novamax series":"Nova.Series.rs",
+  "nova max series":"Nova.Series.rs",
+  "nova series":"Nova.Series.rs",
+  "star hd":"STAR.HD.(RS).rs",
+  "starlife hd":"STAR.Life.HD.(RS).rs",
+  "star life hd":"STAR.Life.HD.(RS).rs",
+  "starmovies hd":"STAR.Movies.HD.(RS).rs",
+  "star movies hd":"STAR.Movies.HD.(RS).rs",
+  "starcrime hd":"STAR.Crime.HD.(RS).rs",
+  "star crime hd":"STAR.Crime.HD.(RS).rs",
+  "axn":"AXN.rs",
+  "axn spin":"AXN.Spin.rs",
+  "amc":"AMC.HD.(RS).rs",
+  "cinemax hd":"Cinemax.HD.rs",
+  "cinemax2 hd":"Cinemax.2.HD.rs",
+  "cinemax 2 hd":"Cinemax.2.HD.rs"
+};
+
+const video=document.getElementById("video");
+const playerBox=document.getElementById("playerBox");
+const hero=document.getElementById("hero");
+const categoryScreen=document.getElementById("categoryScreen");
+const contentArea=document.getElementById("contentArea");
+const categoryGrid=document.getElementById("categoryGrid");
+const channelGrid=document.getElementById("channelGrid");
+const search=document.getElementById("search");
+const statusText=document.getElementById("status");
+const errorText=document.getElementById("error");
+
+async function loadChannels(){
+  try{
+    const res=await fetch("./channels.json?cache="+Date.now());
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    channels=await res.json();
+    channels=channels.filter(c=>c&&c.name&&c.group&&c.url).map((c,i)=>({
+      no:Number(c.no)||i+1,name:String(c.name),group:String(c.group),url:String(c.url),logo:c.logo||"",epgId:c.epgId||""
+    }));
+    document.getElementById("totalChannels").textContent=channels.length+" kanala";
+    document.getElementById("totalGroups").textContent=[...new Set(channels.map(c=>c.group))].length+" kategorija";
+    statusText.textContent="Kanali učitani.";
+    renderCategories();
+  }catch(e){
+    console.error(e);
+    statusText.textContent="Greška: channels.json nije učitan.";
+    errorText.textContent="Proveri da li je channels.json pored index.html.";
+  }
+}
+
+function renderCategories(){
+  const defaultGroups=["🎬 Filmovi i Serije","🎵 Muzički Kanali","🌍 Dokumentarni","⚽ Sportski Kanali","👶 Dečiji Kanali","📺 Ex-YU Kanali"];
+  const groups=[...new Set([...defaultGroups,...channels.map(c=>c.group)])];
+  document.getElementById("categoryCount").textContent=groups.length+" kategorija";
+  categoryGrid.innerHTML="";
+  groups.forEach(group=>{
+    const count=channels.filter(c=>c.group===group).length;
+    const icon=group.trim().split(" ")[0]||"📺";
+    const title=group.replace(/^\\S+\\s?/,"")||group;
+    const card=document.createElement("button");
+    card.className="category-card";
+    card.innerHTML=`<div class="category-icon">${icon}</div><h3>${title}</h3><p>${count} ${count===1?"kanal":"kanala"}</p>`;
+    card.onclick=()=>openCategory(group);
+    categoryGrid.appendChild(card);
+  });
+}
+
+function openCategory(group){
+  currentCategory=group; showFavorites=false; search.value="";
+  hero.style.display="none";
+  playerBox.style.display="none";
+  categoryScreen.style.display="none";
+  contentArea.style.display="block";
+  document.getElementById("categoryTitle").textContent=group;
+  renderChannels();
+  scrollTo({top:0,behavior:"smooth"});
+}
+
+function goHome(){
+  contentArea.style.display="none";
+  categoryScreen.style.display="block";
+  hero.style.display="block";
+  playerBox.style.display="none";
+  stopVideo();
+}
+
+function goBack(){goHome()}
+
+function stopVideo(){
+  if(hls){hls.destroy();hls=null}
+  video.pause(); video.removeAttribute("src"); video.load();
+  activeUrl=""; activeChannel=null;
+}
+
+function isFav(url){return favorites.includes(url)}
+function saveFav(){localStorage.setItem("iptvFavorites",JSON.stringify(favorites))}
+function toggleFav(ch,e){
+  if(e) e.stopPropagation();
+  favorites=isFav(ch.url)?favorites.filter(u=>u!==ch.url):[...favorites,ch.url];
+  saveFav(); renderChannels();
+}
+function toggleCurrentFavorite(){if(activeChannel){toggleFav(activeChannel)}}
+function showOnlyFavorites(){
+  currentCategory="⭐ Favoriti";
+  showFavorites=true;
+  hero.style.display="none";
+  playerBox.style.display="none";
+  categoryScreen.style.display="none";
+  contentArea.style.display="block";
+  document.getElementById("categoryTitle").textContent="⭐ Favoriti";
+  renderChannels();
+}
+
+
+
+async function loadEPG(){
+  try{
+    const res=await fetch("https://iptvm3u.vercel.app/api/epg?cache="+Date.now());
+    if(!res.ok) throw new Error("HTTP "+res.status);
+
+    const data=await res.json();
+    epgData=data.channels||{};
+    channelNameToId=data.channelNameToId||{};
+
+    renderChannels();
+  }catch(err){
+    console.log("EPG nije učitan",err);
+  }
+}
+
+function normalizeEpgName(name){
+  return String(name||"")
+    .toLowerCase()
+    .replace(/&/g,"&amp;")
+    .replace(/\bhd\b/g,"")
+    .replace(/\(rs\)/g,"")
+    .replace(/\(bih\)/g,"")
+    .replace(/\(hr\)/g,"")
+    .replace(/[._-]+/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function formatTime(date){
+  if(!date) return "";
+  return new Date(date).toLocaleTimeString("sr-RS",{
+    hour:"2-digit",
+    minute:"2-digit"
+  });
+}
+
+function findEpgItem(ch){
+  if(ch.epgId && epgData[ch.epgId]){
+    return epgData[ch.epgId];
+  }
+
+  const clean=normalizeEpgName(ch.name);
+
+  const possibleIds=[
+    epgAliases[clean],
+    channelNameToId[clean],
+    channelNameToId[clean+" hd"],
+    channelNameToId[clean+" hd (rs)"],
+    channelNameToId[clean+" (rs)"],
+    channelNameToId[clean+".rs"]
+  ].filter(Boolean);
+
+  for(const id of possibleIds){
+    if(epgData[id]) return epgData[id];
+  }
+
+  return null;
+}
+
+function getEpgHtml(ch){
+  const item=findEpgItem(ch);
+
+  if(!item || !item.now){
+    return `${getEpgHtml(ch)}`;
+  }
+
+  const now=item.now;
+  const next=item.next;
+
+  return `
+    <div class="epg-now">🎬 ${now.title||"Trenutno na programu"}</div>
+    <div class="epg-time">${formatTime(now.start)} - ${formatTime(now.stop)}</div>
+    ${next && next.title ? `<div class="epg-next">Sledeće: ${next.title}</div>` : ""}
+  `;
+}
+
+
+function filteredList(){
+  const q=search.value.toLowerCase();
+  let base=currentCategory==="⭐ Favoriti"?channels:channels.filter(c=>c.group===currentCategory);
+  return base.filter(c=>(!showFavorites||isFav(c.url))).filter(c=>c.name.toLowerCase().includes(q)).sort((a,b)=>a.no-b.no);
+}
+
+function renderChannels(){
+  const list=filteredList();
+  const total=currentCategory==="⭐ Favoriti"?favorites.length:channels.filter(c=>c.group===currentCategory).length;
+  document.getElementById("channelCount").textContent=`${list.length}/${total}`;
+  channelGrid.innerHTML="";
+  if(!list.length){
+    channelGrid.innerHTML='<p class="muted">Nema kanala za prikaz.</p>';
+    return;
+  }
+  list.forEach(ch=>{
+    const card=document.createElement("button");
+    card.className="card"+(ch.url===activeUrl?" active":"");
+    card.innerHTML=`
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="number">${String(ch.no).padStart(2,"0")}</div>
+          <button class="star" type="button">${isFav(ch.url)?"⭐":"☆"}</button>
+        </div>
+        <div>
+          <div class="channel-name">${ch.name}</div>
+          ${getEpgHtml(ch)}
+          <div class="watch">▶ Gledaj</div>
+        </div>
+      </div>`;
+    card.querySelector(".star").onclick=(e)=>toggleFav(ch,e);
+    card.onclick=()=>playChannel(ch);
+    channelGrid.appendChild(card);
+  });
+}
+
+function playChannel(ch){
+  activeUrl=ch.url; activeChannel=ch;
+  playerBox.style.display="block";
+  document.getElementById("currentChannel").textContent=ch.name;
+  const epgItem=findEpgItem(ch);
+  document.getElementById("currentGroup").textContent=epgItem && epgItem.now
+    ? `${ch.group} • ${epgItem.now.title} • ${formatTime(epgItem.now.start)} - ${formatTime(epgItem.now.stop)}`
+    : `${ch.group} • Kanal ${ch.no}`;
+  statusText.textContent="Učitavanje strima...";
+  errorText.textContent="";
+  renderChannels();
+  if(hls){hls.destroy();hls=null}
+  video.pause(); video.removeAttribute("src"); video.load();
+  if(location.protocol==="https:"&&ch.url.startsWith("http://")) errorText.textContent="Ovaj kanal koristi HTTP link. HTTPS sajt može blokirati HTTP stream.";
+  if(Hls.isSupported()){
+    hls=new Hls({enableWorker:true,lowLatencyMode:true,maxBufferLength:30});
+    hls.loadSource(ch.url); hls.attachMedia(video);
+    hls.on(Hls.Events.MANIFEST_PARSED,()=>{video.play().catch(()=>statusText.textContent="Klikni Play za pokretanje.");statusText.textContent="Strim je pokrenut."});
+    hls.on(Hls.Events.ERROR,(event,data)=>{if(data.fatal){statusText.textContent="Greška u strimu.";errorText.textContent="Strim nije dostupan, CORS blokada, mixed content ili offline link."}});
+  }else if(video.canPlayType("application/vnd.apple.mpegurl")){
+    video.src=ch.url; video.play(); statusText.textContent="Strim je pokrenut.";
+  }
+  scrollTo({top:0,behavior:"smooth"});
+}
+
+function toggleCinema(){playerBox.classList.toggle("cinema")}
+function fullscreenVideo(){if(video.requestFullscreen)video.requestFullscreen()}
+
+search.addEventListener("input",renderChannels);
+document.getElementById("allBtn").onclick=()=>{showFavorites=false;renderChannels()};
+document.getElementById("favBtn").onclick=()=>{showFavorites=true;renderChannels()};
+loadChannels();
+loadEPG();
+</script>
+</body>
+</html>
