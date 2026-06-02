@@ -330,6 +330,18 @@
     "url": "https://de1.dstv.cx/CinestarTV2/tracks-v1a1/mono.ts.m3u8"
   },
   {
+    "no": 50,
+    "name": "CroMax Select 7",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CroMaxSelect7/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 51,
+    "name": "CroMax Select 8",
+    "group": "🎬 Filmovi i Serije",
+    "url": "https://de1.dstv.cx/CroMaxSelect8/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
     "no": 1,
     "name": "Jugoton TV",
     "group": "🎵 Muzički Kanali",
@@ -460,5 +472,47 @@
     "name": "Narodna TV",
     "group": "📺 Ex-YU Kanali",
     "url": "https://edge8.pink.rs/narodnatv/chunklist_w357343622.m3u8"
+  },
+  {
+    "no": 15,
+    "name": "StudioB",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/StudioB/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 16,
+    "name": "RTV 1",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/RTVVojvodina1/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 17,
+    "name": "DM Sat",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/DMSat/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 18,
+    "name": "M1 Gold",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/M1Gold/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 19,
+    "name": "Nova M",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/NovaM/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 20,
+    "name": "Trend TV",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/TrendTV/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 21,
+    "name": "BalkanTV",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/BalkanTV/tracks-v1a1/mono.ts.m3u8"
   }
 ]
