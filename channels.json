@@ -348,6 +348,48 @@
     "url": "https://de1.dstv.cx/Jugoton/tracks-v1a1/mono.ts.m3u8"
   },
   {
+    "no": 2,
+    "name": "Pink Folk 1",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://nl1.nghk.ai/PinkFolk1/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 3,
+    "name": "Pink Folk 2",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://nl1.nghk.ai/PinkFolk2/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 4,
+    "name": "AmariTV",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://de1.dstv.cx/AmariTV/tracks-v1a1/mono.ts.m3u8?"
+  },
+  {
+    "no": 5,
+    "name": "Pink Music 2",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://nl1.nghk.ai/PinkMusic2/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 6,
+    "name": "Pink Hits 1",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://nl1.nghk.ai/PinkHits1/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 7,
+    "name": "Pink Hits 2",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://nl1.nghk.ai/PinkHits2/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 8,
+    "name": "Pink Koncert",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://nl1.nghk.ai/PinkKoncert/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
     "no": 1,
     "name": "Cartoon Network",
     "group": "👶 Dečiji Kanali",
@@ -514,5 +556,23 @@
     "name": "BalkanTV",
     "group": "📺 Ex-YU Kanali",
     "url": "https://de1.dstv.cx/BalkanTV/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 22,
+    "name": "Pink TV HD",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://nl1.nghk.ai/PinkTVHD/tracks-v3a1/mono.ts.m3u8"
+  },
+  {
+    "no": 23,
+    "name": "Pink Media BH",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://nl1.nghk.ai/PinkMediaBH/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 24,
+    "name": "Pink Extra",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://nl1.nghk.ai/PinkExtra/tracks-v1a1/mono.ts.m3u8"
   }
 ]
