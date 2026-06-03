@@ -123,7 +123,7 @@
     "no": 9,
     "name": "SciFi",
     "group": "🎬 Filmovi i Serije",
-    "url": "http://5.57.74.130:8000/play/a0ch/index.m3u8"
+    "url": "https://de1.dstv.cx/SciFiHD/tracks-v1a1/mono.ts.m3u8"
   },
   {
     "no": 10,
@@ -610,5 +610,29 @@
     "name": "Pink Extra",
     "group": "📺 Ex-YU Kanali",
     "url": "https://nl1.nghk.ai/PinkExtra/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 25,
+    "name": "K1 HD",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/K1HD/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 26,
+    "name": "RTS Svet",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/RTSSvet/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 27,
+    "name": "RTS Trezor",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/RTSTrezor/tracks-v1a1/mono.ts.m3u8"
+  },
+  {
+    "no": 28,
+    "name": "Palma Plus",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://de1.dstv.cx/PalmaPlus/index.m3u8"
   }
 ]
