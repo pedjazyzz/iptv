@@ -640,5 +640,41 @@
     "name": "Palma Plus",
     "group": "📺 Ex-YU Kanali",
     "url": "https://de1.dstv.cx/PalmaPlus/index.m3u8"
+  },
+  {
+    "no": 29,
+    "name": "Zadruga 1",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://lb.dstvmultimedia.com/Zadruga1/index.m3u8"
+  },
+  {
+    "no": 30,
+    "name": "Zadruga 2",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://lb.dstvmultimedia.com/Zadruga2/index.m3u8"
+  },
+  {
+    "no": 31,
+    "name": "Zadruga 3",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://lb.dstvmultimedia.com/Zadruga3/index.m3u8"
+  },
+  {
+    "no": 32,
+    "name": "Zadruga 4",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://lb.dstvmultimedia.com/Zadruga4/index.m3u8"
+  },
+  {
+    "no": 33,
+    "name": "Una TV",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://lb.dstvmultimedia.com/UnaTVHD/index.m3u8"
+  },
+  {
+    "no": 34,
+    "name": "TrzicTV",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://lb.dstvmultimedia.com/TrzicTV/index.m3u8"
   }
 ]
