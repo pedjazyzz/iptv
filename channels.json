@@ -432,6 +432,48 @@
     "url": "https://lb.dstvmultimedia.com/BNMusic/index.m3u8"
   },
   {
+    "no": 10,
+    "name": "EXYU Melody",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://lb.dstvmultimedia.com/EXYUMelody/index.m3u8"
+  },
+  {
+    "no": 11,
+    "name": "FolkMK",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://lb.dstvmultimedia.com/FolkMK/index.m3u8"
+  },
+  {
+    "no": 12,
+    "name": "HypeTV",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://lb.dstvmultimedia.com/HypeTV/index.m3u8"
+  },
+  {
+    "no": 13,
+    "name": "IDJ",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://lb.dstvmultimedia.com/IDJ/index.m3u8"
+  },
+  {
+    "no": 14,
+    "name": "IDJKids",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://lb.dstvmultimedia.com/IDJKids/index.m3u8"
+  },
+  {
+    "no": 15,
+    "name": "IzvornaTV",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://lb.dstvmultimedia.com/IzvornaTV/index.m3u8"
+  },
+  {
+    "no": 16,
+    "name": "MTV",
+    "group": "🎵 Muzički Kanali",
+    "url": "https://lb.dstvmultimedia.com/MTV00/index.m3u8"
+  },
+  {
     "no": 1,
     "name": "Cartoon Network",
     "group": "👶 Dečiji Kanali",
@@ -456,6 +498,54 @@
     "url": "https://de1.dstv.cx/PinkSuperKids/tracks-v1a1/mono.ts.m3u8"
   },
   {
+    "no": 1,
+    "name": "AlternativnaTV",
+    "group": "📦 Ostalo",
+    "url": "https://lb.dstvmultimedia.com/AlternativnaTV/index.m3u8"
+  },
+  {
+    "no": 2,
+    "name": "BudvaTV",
+    "group": "📦 Ostalo",
+    "url": "https://lb.dstvmultimedia.com/BudvaTV/index.m3u8"
+  },
+  {
+    "no": 3,
+    "name": "Diva",
+    "group": "📦 Ostalo",
+    "url": "https://lb.dstvmultimedia.com/Diva/index.m3u8"
+  },
+  {
+    "no": 4,
+    "name": "EpicDramaHD",
+    "group": "📦 Ostalo",
+    "url": "https://lb.dstvmultimedia.com/EpicDramaHD/index.m3u8"
+  },
+  {
+    "no": 5,
+    "name": "FaceTV",
+    "group": "📦 Ostalo",
+    "url": "https://lb.dstvmultimedia.com/FaceTV/index.m3u8"
+  },
+  {
+    "no": 6,
+    "name": "HitTelevizija",
+    "group": "📦 Ostalo",
+    "url": "https://lb.dstvmultimedia.com/HitTelevizija/index.m3u8"
+  },
+  {
+    "no": 7,
+    "name": "HramTV",
+    "group": "📦 Ostalo",
+    "url": "https://lb.dstvmultimedia.com/HramTV/index.m3u8"
+  },
+  {
+    "no": 8,
+    "name": "JefimijaTV",
+    "group": "📦 Ostalo",
+    "url": "https://lb.dstvmultimedia.com/JefimijaTV/index.m3u8"
+  },
+  {
     "no": 15,
     "name": "N1",
     "group": "📰 Informativni",
@@ -472,6 +562,24 @@
     "name": "N1 BH",
     "group": "📰 Informativni",
     "url": "https://de1.dstv.cx/N1BH/tracks-v3a1/mono.ts.m3u8"
+  },
+  {
+    "no": 18,
+    "name": "DW",
+    "group": "📰 Informativni",
+    "url": "https://lb.dstvmultimedia.com/DW/index.m3u8"
+  },
+  {
+    "no": 19,
+    "name": "InsajderTV",
+    "group": "📰 Informativni",
+    "url": "https://lb.dstvmultimedia.com/InsajderTV/index.m3u8"
+  },
+  {
+    "no": 20,
+    "name": "KurirTV",
+    "group": "📰 Informativni",
+    "url": "https://lb.dstvmultimedia.com/KurirTV/index.m3u8"
   },
   {
     "no": 1,
@@ -676,5 +784,23 @@
     "name": "TrzicTV",
     "group": "📺 Ex-YU Kanali",
     "url": "https://lb.dstvmultimedia.com/TrzicTV/index.m3u8"
+  },
+  {
+    "no": 35,
+    "name": "AgroTV",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://lb.dstvmultimedia.com/AgroTV/index.m3u8"
+  },
+  {
+    "no": 36,
+    "name": "AljazeeraBalkans",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://lb.dstvmultimedia.com/AljazeeraBalkans/index.m3u8"
+  },
+  {
+    "no": 37,
+    "name": "NoviPazar",
+    "group": "📺 Ex-YU Kanali",
+    "url": "https://lb.dstvmultimedia.com/NoviPazar/index.m3u8"
   }
 ]
