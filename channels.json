@@ -315,7 +315,7 @@
     "no": 41,
     "name": "Pink Comedy",
     "group": "🎬 Filmovi i Serije",
-    "url": "https://de1.dstv.cx/PinkComedy/tracks-v1a1/mono.ts.m3u8"
+    "url": "http://51.195.6.191:8080/CinestarComedy/index.m3u8?token=test"
   },
   {
     "no": 42,
